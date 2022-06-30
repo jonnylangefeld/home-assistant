@@ -1,0 +1,846 @@
+- id: '1642811542899'
+  alias: Light on when door unlocks
+  description: ''
+  trigger:
+  - platform: device
+    device_id: d8f3a5326effee6b565e2b1fb5f8ae96
+    domain: lock
+    entity_id: lock.front_door
+    type: unlocked
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - service: light.turn_on
+    target:
+      entity_id: light.entryway
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - service: light.turn_off
+    target:
+      entity_id: light.entryway
+  mode: restart
+- id: '1643163679019'
+  alias: Bedroom Philips Switch on
+  description: ''
+  trigger:
+  - platform: event
+    event_type: hue_event
+    event_data:
+      id: hue_dimmer_switch_2_button
+      device_id: 9aa17a81e8d46036046384dc795af6e8
+      unique_id: d8e142e7-3d6b-45c5-b863-efb34f839149
+      subtype: 1
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 0479caf0564da0aa0d1b22890f842a94
+    entity_id: light.holmo_left
+    domain: light
+  - type: turn_on
+    device_id: d0b4bf16f3e3573a45d90a68fc37ab59
+    entity_id: light.holmo_right
+    domain: light
+  - type: turn_on
+    device_id: 05fc617e442dd530a0325af7445e0deb
+    entity_id: light.bed_jonny
+    domain: light
+  - type: turn_on
+    device_id: 2ef931c4d14fb9280be5ea283bfb0d15
+    entity_id: light.bed_mckenzie
+    domain: light
+  - type: turn_off
+    device_id: c9789ac3d839cb3ae66b3963a7866439
+    entity_id: switch.air_purifier_socket_1
+    domain: switch
+  mode: single
+- id: '1643168835282'
+  alias: Bedroom Philips Switch off
+  description: ''
+  trigger:
+  - platform: event
+    event_type: hue_event
+    event_data:
+      id: hue_dimmer_switch_2_button
+      device_id: 9aa17a81e8d46036046384dc795af6e8
+      unique_id: b0d75990-fe13-4183-acc5-d6141b5919d7
+      subtype: 4
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 0479caf0564da0aa0d1b22890f842a94
+    entity_id: light.holmo_left
+    domain: light
+  - type: turn_off
+    device_id: d0b4bf16f3e3573a45d90a68fc37ab59
+    entity_id: light.holmo_right
+    domain: light
+  - type: turn_off
+    device_id: 05fc617e442dd530a0325af7445e0deb
+    entity_id: light.bed_jonny
+    domain: light
+  - type: turn_off
+    device_id: 2ef931c4d14fb9280be5ea283bfb0d15
+    entity_id: light.bed_mckenzie
+    domain: light
+  mode: single
+- id: '1643181085195'
+  alias: Downstairs Philips Switch on
+  description: ''
+  trigger:
+  - platform: event
+    event_type: hue_event
+    event_data:
+      id: hue_dimmer_switch_1_button
+      device_id: c2fb97be5718b767cebe4acb02ad3c2d
+      unique_id: 514d7604-d808-4088-b57d-ea1e533c4410
+      subtype: 1
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      area_id:
+      - living_room
+      - dining_room
+      - kitchen
+  mode: single
+- id: '1643181244134'
+  alias: Downstairs Philips Switch off
+  description: ''
+  trigger:
+  - platform: event
+    event_type: hue_event
+    event_data:
+      id: hue_dimmer_switch_1_button
+      device_id: c2fb97be5718b767cebe4acb02ad3c2d
+      unique_id: bd3c6e60-0cc6-45f3-936d-ecd6403f6da0
+      subtype: 4
+  condition: []
+  action:
+  - service: light.turn_off
+    target:
+      area_id:
+      - kitchen
+      - living_room
+      - entryway
+      - porch
+      - powder_bath
+      - stairs_closet
+      - entryway
+      - dining_room
+      - garage
+  mode: single
+- id: '1644122061382'
+  alias: Stairs Closet Light On
+  description: ''
+  trigger:
+  - type: opened
+    platform: device
+    device_id: 271d01e92fc54427ce3d1831e4d171b5
+    entity_id: binary_sensor.door_sensor_1_ias_zone
+    domain: binary_sensor
+  condition: []
+  action:
+  - type: turn_on
+    device_id: 7562de026094c39b112f530666aa84f0
+    entity_id: light.stairs_closet_on_off
+    domain: light
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: 7562de026094c39b112f530666aa84f0
+    entity_id: light.stairs_closet_on_off
+    domain: light
+  mode: restart
+- id: '1644122095871'
+  alias: Stairs Closet Light Off
+  description: ''
+  trigger:
+  - type: not_opened
+    platform: device
+    device_id: 271d01e92fc54427ce3d1831e4d171b5
+    entity_id: binary_sensor.door_sensor_1_ias_zone
+    domain: binary_sensor
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 7562de026094c39b112f530666aa84f0
+    entity_id: light.stairs_closet_on_off
+    domain: light
+  mode: single
+- id: '1645918492399'
+  alias: Turn on Entryway
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: light.entryway_lights
+    to: 'on'
+  - platform: state
+    entity_id: light.entryway_spot_light_on_off
+    to: 'on'
+  condition: []
+  action:
+  - service: light.turn_on
+    target:
+      area_id: entryway
+  mode: single
+- id: '1645918492400'
+  alias: Turn off Entryway
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: light.entryway_lights
+    to: 'off'
+  - platform: state
+    entity_id: light.entryway_spot_light_on_off
+    to: 'off'
+  condition: []
+  action:
+  - service: light.turn_off
+    target:
+      area_id: entryway
+  mode: single
+- id: '1645931965005'
+  alias: Powder Bath Fan Off After 5 Minutes
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 9b33bc2e225716959b4326ce57d303d2
+    entity_id: light.powder_bath_fan_on_off
+    domain: light
+  condition: []
+  action:
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: 9b33bc2e225716959b4326ce57d303d2
+    entity_id: light.powder_bath_fan_on_off
+    domain: light
+  mode: single
+- id: '1645931965006'
+  alias: Master Bath Fan Off After 5 Minutes
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 00cb693ee81a1b6d9c6bd23815870132
+    entity_id: light.master_bath_fan_on_off
+    domain: light
+  condition: []
+  action:
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: 00cb693ee81a1b6d9c6bd23815870132
+    entity_id: light.master_bath_fan_on_off
+    domain: light
+  mode: single
+- id: '1646444415698'
+  alias: Bedroom Bathroom Shades Up Hold
+  description: ''
+  trigger:
+  - platform: event
+    event_type: hue_event
+    event_data:
+      id: hue_dimmer_switch_2_button
+      device_id: 9aa17a81e8d46036046384dc795af6e8
+      unique_id: 06948711-a261-4eea-852c-a05983de5da6
+      type: repeat
+      subtype: 2
+  condition: []
+  action:
+  - service: cover.open_cover
+    target:
+      area_id:
+      - master_bath
+      - bedroom
+  - wait_for_trigger:
+    - platform: event
+      event_type: hue_event
+      event_data:
+        id: hue_dimmer_switch_2_button
+        device_id: 9aa17a81e8d46036046384dc795af6e8
+        unique_id: 06948711-a261-4eea-852c-a05983de5da6
+        type: long_release
+        subtype: 2
+  - service: cover.stop_cover
+    target:
+      area_id:
+      - master_bath
+      - bedroom
+  mode: single
+- id: '1646444415699'
+  alias: Bedroom Bathroom Shades Down Hold
+  description: ''
+  trigger:
+  - platform: event
+    event_type: hue_event
+    event_data:
+      id: hue_dimmer_switch_2_button
+      device_id: 9aa17a81e8d46036046384dc795af6e8
+      unique_id: c200c949-ef00-49ac-88ee-eb2aafb858e0
+      type: repeat
+      subtype: 3
+  condition: []
+  action:
+  - service: cover.close_cover
+    target:
+      area_id:
+      - master_bath
+      - bedroom
+  - wait_for_trigger:
+    - platform: event
+      event_type: hue_event
+      event_data:
+        id: hue_dimmer_switch_2_button
+        device_id: 9aa17a81e8d46036046384dc795af6e8
+        unique_id: c200c949-ef00-49ac-88ee-eb2aafb858e0
+        type: long_release
+        subtype: 3
+  - service: cover.stop_cover
+    target:
+      area_id:
+      - master_bath
+      - bedroom
+  mode: single
+- id: '1646444415700'
+  alias: Bedroom Bathroom Shades Up
+  description: ''
+  trigger:
+  - platform: event
+    event_type: hue_event
+    event_data:
+      id: hue_dimmer_switch_2_button
+      device_id: 9aa17a81e8d46036046384dc795af6e8
+      unique_id: 06948711-a261-4eea-852c-a05983de5da6
+      type: initial_press
+      subtype: 2
+  condition: []
+  action:
+  - service: cover.open_cover
+    target:
+      area_id:
+      - master_bath
+      - bedroom
+  - wait_for_trigger:
+    - platform: event
+      event_type: hue_event
+      event_data:
+        id: hue_dimmer_switch_2_button
+        device_id: 9aa17a81e8d46036046384dc795af6e8
+        unique_id: 06948711-a261-4eea-852c-a05983de5da6
+        type: initial_press
+        subtype: 2
+    - platform: event
+      event_type: call_service
+      event_data:
+        domain: cover
+        service: stop_cover
+        service_data:
+          area_id:
+          - master_bath
+    - platform: template
+      value_template: '{{ state_attr(''cover.master_bath_shades_window_covering'',
+        ''current_position'') == 100 }}'
+  - service: cover.stop_cover
+    target:
+      area_id:
+      - master_bath
+      - bedroom
+  mode: single
+- id: '1646444415701'
+  alias: Bedroom Bathroom Shades Down
+  description: ''
+  trigger:
+  - platform: event
+    event_type: hue_event
+    event_data:
+      id: hue_dimmer_switch_2_button
+      device_id: 9aa17a81e8d46036046384dc795af6e8
+      unique_id: c200c949-ef00-49ac-88ee-eb2aafb858e0
+      type: initial_press
+      subtype: 3
+  condition: []
+  action:
+  - service: cover.close_cover
+    target:
+      area_id:
+      - master_bath
+      - bedroom
+  - wait_for_trigger:
+    - platform: event
+      event_type: hue_event
+      event_data:
+        id: hue_dimmer_switch_2_button
+        device_id: 9aa17a81e8d46036046384dc795af6e8
+        unique_id: c200c949-ef00-49ac-88ee-eb2aafb858e0
+        type: initial_press
+        subtype: 3
+    - platform: event
+      event_type: call_service
+      event_data:
+        domain: cover
+        service: stop_cover
+        service_data:
+          area_id:
+          - master_bath
+    - platform: template
+      value_template: '{{ state_attr(''cover.master_bath_shades_window_covering'',
+        ''current_position'') == 0 }}'
+  - service: cover.stop_cover
+    target:
+      area_id:
+      - master_bath
+      - bedroom
+  mode: single
+- id: '1646444415702'
+  alias: In-Law Bedroom Shades Down
+  description: ''
+  trigger:
+  - platform: event
+    event_type: zha_event
+    event_data:
+      device_ieee: 0c:43:14:ff:fe:86:b2:ea
+      unique_id: 0c:43:14:ff:fe:86:b2:ea:2:0x0006
+      device_id: ca8aa2d6babeed5ac78dd51be6db4875
+      endpoint_id: 2
+      cluster_id: 6
+      command: remote_button_short_press
+  condition: []
+  action:
+  - service: cover.close_cover
+    target:
+      area_id:
+      - in_law_bedroom
+  - wait_for_trigger:
+    - platform: event
+      event_type: zha_event
+      event_data:
+        device_ieee: 0c:43:14:ff:fe:86:b2:ea
+        unique_id: 0c:43:14:ff:fe:86:b2:ea:2:0x0006
+        device_id: ca8aa2d6babeed5ac78dd51be6db4875
+        endpoint_id: 2
+        cluster_id: 6
+        command: remote_button_short_press
+    - platform: event
+      event_type: zha_event
+      event_data:
+        device_ieee: 0c:43:14:ff:fe:86:b2:ea
+        unique_id: 0c:43:14:ff:fe:86:b2:ea:1:0x0006
+        device_id: ca8aa2d6babeed5ac78dd51be6db4875
+        endpoint_id: 1
+        cluster_id: 6
+        command: remote_button_short_press
+    - platform: event
+      event_type: call_service
+      event_data:
+        domain: cover
+        service: stop_cover
+        service_data:
+          area_id:
+          - in_law_bedroom
+    - platform: template
+      value_template: '{{ state_attr(''cover.in_law_bedroom_shades_north_window_covering'',
+        ''current_position'') == 0 }}'
+  - service: cover.stop_cover
+    target:
+      area_id:
+      - in_law_bedroom
+  mode: single
+- id: '1646444415703'
+  alias: In-Law Bedroom Shades Up
+  description: ''
+  trigger:
+  - platform: event
+    event_type: zha_event
+    event_data:
+      device_ieee: 0c:43:14:ff:fe:86:b2:ea
+      unique_id: 0c:43:14:ff:fe:86:b2:ea:1:0x0006
+      device_id: ca8aa2d6babeed5ac78dd51be6db4875
+      endpoint_id: 1
+      cluster_id: 6
+      command: remote_button_short_press
+  condition: []
+  action:
+  - service: cover.open_cover
+    target:
+      area_id:
+      - in_law_bedroom
+  - wait_for_trigger:
+    - platform: event
+      event_type: zha_event
+      event_data:
+        device_ieee: 0c:43:14:ff:fe:86:b2:ea
+        unique_id: 0c:43:14:ff:fe:86:b2:ea:1:0x0006
+        device_id: ca8aa2d6babeed5ac78dd51be6db4875
+        endpoint_id: 1
+        cluster_id: 6
+        command: remote_button_short_press
+    - platform: event
+      event_type: zha_event
+      event_data:
+        device_ieee: 0c:43:14:ff:fe:86:b2:ea
+        unique_id: 0c:43:14:ff:fe:86:b2:ea:2:0x0006
+        device_id: ca8aa2d6babeed5ac78dd51be6db4875
+        endpoint_id: 2
+        cluster_id: 6
+        command: remote_button_short_press
+    - platform: event
+      event_type: call_service
+      event_data:
+        domain: cover
+        service: stop_cover
+        service_data:
+          area_id:
+          - in_law_bedroom
+    - platform: template
+      value_template: '{{ state_attr(''cover.in_law_bedroom_shades_north_window_covering'',
+        ''current_position'') == 100 }}'
+  - service: cover.stop_cover
+    target:
+      area_id:
+      - in_law_bedroom
+  mode: single
+- id: '1648327355840'
+  alias: Set Shades to Zebra at Sunrise
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: '0'
+  condition: []
+  action:
+  - scene: scene.zebra
+  mode: single
+- id: '1648327422530'
+  alias: Close Front Shades at Sunset
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: '0'
+  condition: []
+  action:
+  - service: scene.turn_on
+    target:
+      entity_id: scene.close_front_shades
+    metadata: {}
+  mode: single
+- id: '1649809832820'
+  alias: Close Bedroom Shades After Sunset
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: 02:00:00
+  condition: []
+  action:
+  - service: cover.close_cover
+    target:
+      area_id:
+      - bedroom
+      - master_bath
+    data: {}
+  mode: single
+- id: '1649809901391'
+  alias: Open Bedroom Shades at 10:30
+  description: ''
+  trigger:
+  - platform: time
+    at: '10:30:00'
+  condition: []
+  action:
+  - service: cover.open_cover
+    target:
+      area_id:
+      - bedroom
+      - master_bath
+  mode: single
+- id: '1655012655407'
+  alias: Reset Thermostat Upstairs During Hot Temperatures
+  description: ''
+  trigger:
+  - platform: event
+    event_type: state_changed
+    event_data:
+      entity_id: climate.lyric_345067
+  condition:
+  - condition: template
+    value_template: '{{ state_attr(''weather.lake_house'',''temperature'') > 62 }}'
+  - condition: template
+    value_template: '{{ (trigger.event.data.old_state.attributes.temperature - trigger.event.data.new_state.attributes.temperature)
+      | abs > 0 }}'
+  - condition: template
+    value_template: '{{ trigger.event.data.new_state.attributes.temperature != 76
+      }}'
+  action:
+  - delay:
+      hours: 1
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.lyric_345067
+    data:
+      temperature: 76
+      hvac_mode: cool
+  trace:
+    stored_traces: 30
+  mode: restart
+- id: '1655012655408'
+  alias: Reset Thermostat Downstairs During Hot Temperatures
+  description: ''
+  trigger:
+  - platform: event
+    event_type: state_changed
+    event_data:
+      entity_id: climate.lyric_344142
+  condition:
+  - condition: template
+    value_template: '{{ state_attr(''weather.lake_house'',''temperature'') > 62 }}'
+  - condition: template
+    value_template: '{{ (trigger.event.data.old_state.attributes.temperature - trigger.event.data.new_state.attributes.temperature)
+      | abs > 0 }}'
+  - condition: template
+    value_template: '{{ trigger.event.data.new_state.attributes.temperature != 76
+      }}'
+  action:
+  - delay:
+      hours: 1
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - service: climate.set_temperature
+    target:
+      entity_id: climate.lyric_344142
+    data:
+      temperature: 76
+      hvac_mode: cool
+  trace:
+    stored_traces: 30
+  mode: restart
+- id: '1656372517250'
+  alias: 'Office: Block Sun'
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.sun_azimuth
+    above: '250'
+  condition: []
+  action:
+  - service: cover.set_cover_position
+    data:
+      position: 56
+    target:
+      entity_id: cover.office_shades_west_window_covering
+  mode: single
+- id: '1656372517251'
+  alias: 'Office: Open after Block Sun'
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.sun_azimuth
+    above: '275'
+  condition: []
+  action:
+  - service: cover.open_cover
+    data: {}
+    target:
+      entity_id: cover.office_shades_west_window_covering
+  mode: single
+- id: '1656372852136'
+  alias: 'Office: Open Shades When LEDs Switch On'
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_on
+    device_id: 6a190111eba2023708c4285a4ef6e731
+    entity_id: light.leds
+    domain: light
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - service: cover.set_cover_position
+    data:
+      position: 100
+    target:
+      area_id: office
+  mode: single
+- id: '1656372852137'
+  alias: 'Office: Close Shades When LEDs Switch Off'
+  description: ''
+  trigger:
+  - platform: device
+    type: turned_off
+    device_id: 6a190111eba2023708c4285a4ef6e731
+    entity_id: light.leds
+    domain: light
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - service: scene.turn_on
+    data: {}
+    target:
+      entity_id: scene.zebra_office
+  mode: single
+- id: '1656372852138'
+  alias: 'Office: Close Shades When Midnight'
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:00:00
+  condition:
+  - condition: state
+    entity_id: light.leds
+    state: 'off'
+  action:
+  - service: scene.turn_on
+    data: {}
+    target:
+      entity_id: scene.zebra_office
+  mode: single
+- id: '1656372852139'
+  alias: 'Office: Open Shades at Sunrise'
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: '0'
+  condition: []
+  action:
+  - service: cover.set_cover_position
+    data:
+      position: 100
+    target:
+      area_id: office
+  mode: single
+- id: '1656452687326'
+  alias: Turn on String Lights
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: 0
+  condition: []
+  action:
+  - type: turn_on
+    device_id: d24b8ab5e84bf9b240bb9ac744fbc25c
+    entity_id: switch.deck_string_lights
+    domain: switch
+  mode: single
+- id: '1656453767827'
+  alias: 'Backup: Nightly'
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:00:00
+  condition: []
+  action:
+  - service: zha_toolkit.execute
+    data:
+      command: znp_backup
+      command_data: '{{ now().strftime("_%d") }}'
+      event_success: znp_backup_success
+      event_fail: znp_backup_failed
+      event_done: znp_backup_done
+  - service: zha_toolkit.execute
+    data:
+      command: znp_nvram_backup
+      command_data: '{{ now().strftime("_%d") }}'
+      event_success: znp_nvram_backup_success
+      event_fail: znp_nvram_backup_failed
+      event_done: znp_nvram_backup_done
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - service: backup.create
+    data: {}
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+  - service: shell_command.upload_backup
+    data: {}
+  mode: single
+- id: '1656458031247'
+  alias: 'Backup: Sonoff Zigbee 3.0 Dongle - Monthly rotation'
+  description: ''
+  use_blueprint:
+    path: mdeweerd/backup_znp.yaml
+    input:
+      backup_time: 00:00:00
+- id: '1656478609433'
+  alias: 'Studio Mckenzie: Half Way at Sunrise'
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: 00:01:00
+  condition: []
+  action:
+  - service: cover.set_cover_position
+    data:
+      position: 52
+    target:
+      entity_id: cover.in_law_living_room_shades_east_window_covering
+  mode: single
+- id: '1656478832786'
+  alias: 'Studio Mckenzie: Zebra Half Way at Noon'
+  description: ''
+  trigger:
+  - platform: time
+    at: '12:00:00'
+  condition: []
+  action:
+  - service: cover.set_cover_position
+    data:
+      position: 64
+    target:
+      entity_id: cover.in_law_living_room_shades_east_window_covering
+  mode: single
+- id: '1656482455479'
+  alias: Turn off String Lights
+  description: ''
+  trigger:
+  - platform: time
+    at: 00:00:00
+  condition: []
+  action:
+  - type: turn_off
+    device_id: d24b8ab5e84bf9b240bb9ac744fbc25c
+    entity_id: switch.deck_string_lights
+    domain: switch
+  mode: single
+- id: '1656566863995'
+  alias: 'Backup: Install gpg on Startup'
+  description: ''
+  trigger:
+  - platform: homeassistant
+    event: start
+  condition: []
+  action:
+  - service: shell_command.install_gpg
+    data: {}
+  mode: single

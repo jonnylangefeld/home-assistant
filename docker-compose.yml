@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  server:
+    image: homeassistant/home-assistant:2022.6.5@sha256:9585a9d72cb29d3e26feba1029ba3c452fdf245c60439d39367e88cb9dabef31
+    network_mode: host
+    container_name: home-assistant
+    restart: unless-stopped
+    volumes:
+      # run export APP_DATA_DIR="$(pwd)"
+      - /home/umbrel/home-assistant/data:/config
+      # Until this is fixed: https://github.com/zigpy/zha-device-handlers/issues/1306
+      - /home/umbrel/home-assistant/deps/zhaquirks:/usr/local/lib/python3.9/site-packages/zhaquirks
+      - /home/umbrel/home-assistant/deps/mega:/usr/local/lib/python3.9/site-packages/mega
+    devices:
+      # Do not use /dev/ttyUSBX serial devices, as those mappings can change over time.
+      # Instead, use the /dev/serial/by-id/X serial device for your Z-Wave stick.
+      - '/dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_f8e102a854d9eb11bc15148e6fe9f4d9-if00-port0:/dev/sonoff'

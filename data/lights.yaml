@@ -1,0 +1,97 @@
+# Leviton Decora Light Switches
+- platform: decora_wifi
+  username: jonnylangefeld@gmail.com
+  password: !secret decora_wifi_password
+
+# The Leviton Decora switches don't have a unique ID and therefore can't be
+# added to areas and such. The following templates makes them available as
+# entities with IDs
+- platform: template
+  lights:
+    entryway_lights:
+      unique_id: entryway_lights
+      friendly_name: "Entryway Lights"
+      value_template: "{{ is_state('light.entryway', 'on') }}"
+      turn_on:
+        service: light.turn_on
+        target:
+          entity_id:
+            - light.entryway
+      turn_off:
+        service: light.turn_off
+        target:
+          entity_id:
+            - light.entryway
+- platform: template
+  lights:
+    living_room_lights:
+      unique_id: living_room_lights
+      friendly_name: "Living Room Lights"
+      value_template: "{{ states('light.living_room') }}"
+      level_template: "{{ state_attr('light.living_room', 'brightness') }}"
+      turn_on:
+        service: light.turn_on
+        target:
+          entity_id:
+            - light.living_room
+      turn_off:
+        service: light.turn_off
+        target:
+          entity_id:
+            - light.living_room
+      set_level:
+        service: light.turn_on
+        target:
+          entity_id: light.living_room
+        data:
+          brightness: "{{ brightness }}"
+- platform: template
+  lights:
+    dining_room_lights:
+      unique_id: dining_room_lights
+      friendly_name: "Dining Room Lights"
+      value_template: "{{ states('light.dining_room') }}"
+      level_template: "{{ state_attr('light.dining_room', 'brightness') }}"
+      turn_on:
+        service: light.turn_on
+        target:
+          entity_id:
+            - light.dining_room
+      turn_off:
+        service: light.turn_off
+        target:
+          entity_id:
+            - light.dining_room
+      set_level:
+        service: light.turn_on
+        target:
+          entity_id: light.dining_room
+        data:
+          brightness: "{{ brightness }}"
+- platform: template
+  lights:
+    kitchen_lights:
+      unique_id: kitchen_lights
+      friendly_name: "Kitchen Lights"
+      value_template: "{{ states('light.kitchen') }}"
+      level_template: "{{ state_attr('light.kitchen', 'brightness') }}"
+      turn_on:
+        service: light.turn_on
+        target:
+          entity_id:
+            - light.kitchen
+      turn_off:
+        service: light.turn_off
+        target:
+          entity_id:
+            - light.kitchen
+      set_level:
+        service: light.turn_on
+        target:
+          entity_id: light.kitchen
+        data:
+          brightness: "{{ brightness }}"
+
+- platform: switch
+  name: Deck String Lights
+  entity_id: switch.deck_string_lights

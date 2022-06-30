@@ -1,0 +1,28 @@
+- platform: template
+  sensors:
+    sun_elevation:
+      value_template: '{{ ((states.sun.sun.attributes.elevation)) | float }}'
+      unique_id: sun_elevation
+      friendly_name: Sun Elevation
+      unit_of_measurement: "°"
+- platform: template
+  sensors:
+    sun_azimuth:
+      value_template: '{{ ((states.sun.sun.attributes.azimuth)) | float }}'
+      unique_id: sun_azimuth
+      friendly_name: Sun Azimuth
+      unit_of_measurement: "°"
+- platform: template
+  sensors:
+    outside_temperature:
+      value_template: '{{ ((states.weather.lake_house.attributes.temperature)) | float }}'
+      unique_id: outside_temperature
+      friendly_name: Outside Temperature
+      unit_of_measurement: "°F"
+- platform: template
+  sensors:
+    wind_speed:
+      value_template: '{{ ((states.weather.lake_house.attributes.wind_speed)) | float }}'
+      unique_id: wind_speed
+      friendly_name: Wind Speed
+      unit_of_measurement: "mph"

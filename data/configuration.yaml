@@ -1,0 +1,66 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+homeassistant:
+  time_zone: America/Los_Angeles
+
+http:
+  server_port: 8083
+
+cloud:
+
+logger:
+  default: info
+  # logs:
+  #   zigpy: debug
+  #   zigpy_deconz.zigbee.application: debug
+  #   zigpy_deconz.api: debug
+  #   zigpy_xbee.zigbee.application: debug
+  #   zigpy_xbee.api: debug
+  #   zigpy_zigate: debug
+  #   zigpy_znp: debug
+  #   zhaquirks: debug
+  #   homeassistant.core: debug
+  #   homeassistant.components.zha: debug
+  #   custom_components.zha_toolkit: debug
+  #   bellows.zigbee.application: debug
+  #   bellows.ezsp: debug
+  #   homeassistant.components.xiaomi_miio: debug
+  #   miio.miioprotocol: debug
+
+zha:
+  zigpy_config:
+    network:
+      channel: 25             # What channel the radio should try to use.
+      channels: [15, 20, 25]  # Channel mask
+
+zha_toolkit:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+spotify:
+  client_id: 525fd62c46d24f529195b8102ffe5b81
+  client_secret: !secret spotify_client_secret
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+light: !include lights.yaml
+fan: !include fans.yaml
+sensor: !include sensors.yaml
+shell_command: !include shell_command.yaml
+
+# supposedly the new template platform, but doesn't work for me yet
+# template:
+#   - sensor:
+#     # - name: Sun Elevation
+#     #   unique_id: sun_elevation
+#     #   sate: '{{ ((states.sun.sun.attributes.elevation)) | float }}'
+#     - name: Sun Azimuth
+#       unique_id: sun_azimuth
+#       sate: "{{ states('sun.sun.attributes.azimuth') | float }}"
+#       # unit_of_measurement: "°"

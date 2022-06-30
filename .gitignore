@@ -1,0 +1,13 @@
+*.august.conf
+secrets.yaml
+*log*
+__pycache__
+data/tts
+data/.cloud
+data/.storage
+data/backups
+data/custom_components
+data/deps
+data/image
+data/backup-secrets.json
+*db*

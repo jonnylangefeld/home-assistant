@@ -1,0 +1,373 @@
+- id: '1648325465946'
+  name: Zebra
+  entities:
+    cover.bedroom_shades_east_window_covering:
+      current_position: 2
+      friendly_name: Bedroom Shades East
+      supported_features: 15
+      state: open
+    cover.bedroom_shades_left_window_covering:
+      current_position: 2
+      friendly_name: Bedroom Shades Left
+      supported_features: 15
+      state: open
+    cover.master_bath_shades_window_covering:
+      current_position: 2
+      friendly_name: Master Bath Shades
+      supported_features: 15
+      state: open
+    cover.entryway_shades_left_window_covering:
+      current_position: 2
+      friendly_name: Entryway Shades Left
+      supported_features: 15
+      state: open
+    cover.entryway_shades_right_window_covering:
+      current_position: 2
+      friendly_name: Entryway Shades Right
+      supported_features: 15
+      state: open
+    cover.in_law_living_room_shades_west_window_covering:
+      current_position: 3
+      friendly_name: In-Law Living Room Shades West
+      supported_features: 15
+      state: open
+    cover.in_law_living_room_shades_east_window_covering:
+      current_position: 14
+      friendly_name: In-Law Living Room Shades East
+      supported_features: 15
+      state: open
+    cover.in_law_bedroom_shades_west_window_covering:
+      current_position: 17
+      friendly_name: In-Law Bedroom Shades West
+      supported_features: 15
+      state: open
+    cover.in_law_bedroom_shades_north_window_covering:
+      current_position: 2
+      friendly_name: In-Law Bedroom Shades North
+      supported_features: 15
+      state: open
+    cover.bedroom_shades_right_window_covering:
+      current_position: 3
+      friendly_name: Bedroom Shades Right
+      supported_features: 15
+      state: open
+    cover.in_law_bedroom_shades_east_window_covering:
+      current_position: 3
+      friendly_name: In-Law Bedroom Shades East
+      supported_features: 15
+      state: open
+    cover.guest_room_shades_left_window_covering:
+      current_position: 2
+      friendly_name: Guest Room Shades Left
+      supported_features: 15
+      state: open
+    cover.guest_room_shades_right_window_covering:
+      current_position: 2
+      friendly_name: Guest Room Shades right
+      supported_features: 15
+      state: open
+  icon: mdi:blinds-open
+- id: '1648325799631'
+  name: Close All Shades
+  entities:
+    cover.bedroom_shades_east_window_covering:
+      current_position: 0
+      friendly_name: Bedroom Shades East
+      supported_features: 15
+      state: closed
+    cover.bedroom_shades_left_window_covering:
+      current_position: 0
+      friendly_name: Bedroom Shades Left
+      supported_features: 15
+      state: closed
+    cover.entryway_shades_left_window_covering:
+      current_position: 0
+      friendly_name: Entryway Shades Left
+      supported_features: 15
+      state: closed
+    cover.entryway_shades_right_window_covering:
+      current_position: 0
+      friendly_name: Entryway Shades Right
+      supported_features: 15
+      state: closed
+    cover.in_law_living_room_shades_west_window_covering:
+      current_position: 0
+      friendly_name: In-Law Living Room Shades West
+      supported_features: 15
+      state: closed
+    cover.in_law_living_room_shades_east_window_covering:
+      current_position: 12
+      friendly_name: In-Law Living Room Shades East
+      supported_features: 15
+      state: closed
+    cover.in_law_bedroom_shades_north_window_covering:
+      current_position: 0
+      friendly_name: In-Law Bedroom Shades North
+      supported_features: 15
+      state: closed
+    cover.in_law_bedroom_shades_west_window_covering:
+      current_position: 0
+      friendly_name: In-Law Bedroom Shades West
+      supported_features: 15
+      state: closed
+    cover.master_bath_shades_window_covering:
+      current_position: 0
+      friendly_name: Master Bath Shades
+      supported_features: 15
+      state: closed
+    cover.bedroom_shades_right_window_covering:
+      current_position: 0
+      friendly_name: Bedroom Shades Right
+      supported_features: 15
+      state: closed
+    cover.in_law_bedroom_shades_east_window_covering:
+      current_position: 0
+      friendly_name: In-Law Bedroom Shades East
+      supported_features: 15
+      state: closed
+    cover.guest_room_shades_left_window_covering:
+      current_position: 0
+      friendly_name: Guest Room Shades Left
+      supported_features: 15
+      state: closed
+    cover.guest_room_shades_right_window_covering:
+      current_position: 0
+      friendly_name: Guest Room Shades right
+      supported_features: 15
+      state: closed
+  icon: mdi:blinds
+- id: '1649637536861'
+  name: Close Front Shades
+  entities:
+    cover.in_law_bedroom_shades_north_window_covering:
+      current_position: 0
+      friendly_name: In-Law Bedroom Shades North
+      supported_features: 15
+      state: closed
+    cover.in_law_bedroom_shades_east_window_covering:
+      current_position: 12
+      friendly_name: In-Law Bedroom Shades East
+      supported_features: 15
+      state: open
+    cover.in_law_bedroom_shades_west_window_covering:
+      current_position: 0
+      friendly_name: In-Law Bedroom Shades West
+      supported_features: 15
+      state: closed
+    cover.in_law_living_room_shades_west_window_covering:
+      current_position: 0
+      friendly_name: In-Law Living Room Shades West
+      supported_features: 15
+      state: closed
+    cover.in_law_living_room_shades_east_window_covering:
+      current_position: 0
+      friendly_name: In-Law Living Room Shades East
+      supported_features: 15
+      state: closed
+    cover.entryway_shades_left_window_covering:
+      current_position: 0
+      friendly_name: Entryway Shades Left
+      supported_features: 15
+      state: closed
+    cover.entryway_shades_right_window_covering:
+      current_position: 0
+      friendly_name: Entryway Shades Right
+      supported_features: 15
+      state: closed
+    cover.guest_room_shades_left_window_covering:
+      current_position: 0
+      friendly_name: Guest Room Shades Left
+      supported_features: 15
+      state: closed
+    cover.guest_room_shades_right_window_covering:
+      current_position: 0
+      friendly_name: Guest Room Shades right
+      supported_features: 15
+      state: closed
+  icon: mdi:blinds
+- id: '1649638034195'
+  name: Zebra Front
+  entities:
+    cover.in_law_bedroom_shades_north_window_covering:
+      current_position: 2
+      friendly_name: In-Law Bedroom Shades North
+      supported_features: 15
+      state: open
+    cover.in_law_bedroom_shades_west_window_covering:
+      current_position: 17
+      friendly_name: In-Law Bedroom Shades West
+      supported_features: 15
+      state: open
+    cover.in_law_bedroom_shades_east_window_covering:
+      current_position: 14
+      friendly_name: In-Law Bedroom Shades East
+      supported_features: 15
+      state: open
+    cover.in_law_living_room_shades_west_window_covering:
+      current_position: 3
+      friendly_name: In-Law Living Room Shades West
+      supported_features: 15
+      state: open
+    cover.in_law_living_room_shades_east_window_covering:
+      current_position: 3
+      friendly_name: In-Law Living Room Shades East
+      supported_features: 15
+      state: open
+    cover.entryway_shades_left_window_covering:
+      current_position: 2
+      friendly_name: Entryway Shades Left
+      supported_features: 15
+      state: open
+    cover.entryway_shades_right_window_covering:
+      current_position: 2
+      friendly_name: Entryway Shades Right
+      supported_features: 15
+      state: open
+    cover.guest_room_shades_left_window_covering:
+      current_position: 2
+      friendly_name: Guest Room Shades Left
+      supported_features: 15
+      state: open
+    cover.guest_room_shades_right_window_covering:
+      current_position: 2
+      friendly_name: Guest Room Shades right
+      supported_features: 15
+      state: open
+  icon: mdi:blinds-open
+- id: '1648325799632'
+  name: Open All Shades
+  entities:
+    cover.bedroom_shades_east_window_covering:
+      current_position: 100
+      friendly_name: Bedroom Shades East
+      supported_features: 15
+      state: open
+    cover.bedroom_shades_left_window_covering:
+      current_position: 100
+      friendly_name: Bedroom Shades Left
+      supported_features: 15
+      state: open
+    cover.entryway_shades_left_window_covering:
+      current_position: 100
+      friendly_name: Entryway Shades Left
+      supported_features: 15
+      state: open
+    cover.entryway_shades_right_window_covering:
+      current_position: 100
+      friendly_name: Entryway Shades Right
+      supported_features: 15
+      state: open
+    cover.in_law_living_room_shades_west_window_covering:
+      current_position: 100
+      friendly_name: In-Law Living Room Shades West
+      supported_features: 15
+      state: open
+    cover.in_law_living_room_shades_east_window_covering:
+      current_position: 100
+      friendly_name: In-Law Living Room Shades East
+      supported_features: 15
+      state: open
+    cover.in_law_bedroom_shades_north_window_covering:
+      current_position: 100
+      friendly_name: In-Law Bedroom Shades North
+      supported_features: 15
+      state: open
+    cover.in_law_bedroom_shades_west_window_covering:
+      current_position: 100
+      friendly_name: In-Law Bedroom Shades West
+      supported_features: 15
+      state: open
+    cover.master_bath_shades_window_covering:
+      current_position: 100
+      friendly_name: Master Bath Shades
+      supported_features: 15
+      state: open
+    cover.bedroom_shades_right_window_covering:
+      current_position: 100
+      friendly_name: Bedroom Shades Right
+      supported_features: 15
+      state: open
+    cover.in_law_bedroom_shades_east_window_covering:
+      current_position: 100
+      friendly_name: In-Law Bedroom Shades East
+      supported_features: 15
+      state: open
+    cover.guest_room_shades_left_window_covering:
+      current_position: 100
+      friendly_name: Guest Room Shades Left
+      supported_features: 15
+      state: open
+    cover.guest_room_shades_right_window_covering:
+      current_position: 100
+      friendly_name: Guest Room Shades right
+      supported_features: 15
+      state: open
+  icon: mdi:blinds-open
+- id: '1648325799633'
+  name: Open Front Shades
+  entities:
+    cover.entryway_shades_left_window_covering:
+      current_position: 100
+      friendly_name: Entryway Shades Left
+      supported_features: 15
+      state: open
+    cover.entryway_shades_right_window_covering:
+      current_position: 100
+      friendly_name: Entryway Shades Right
+      supported_features: 15
+      state: open
+    cover.in_law_living_room_shades_west_window_covering:
+      current_position: 100
+      friendly_name: In-Law Living Room Shades West
+      supported_features: 15
+      state: open
+    cover.in_law_living_room_shades_east_window_covering:
+      current_position: 100
+      friendly_name: In-Law Living Room Shades East
+      supported_features: 15
+      state: open
+    cover.in_law_bedroom_shades_north_window_covering:
+      current_position: 100
+      friendly_name: In-Law Bedroom Shades North
+      supported_features: 15
+      state: open
+    cover.in_law_bedroom_shades_west_window_covering:
+      current_position: 100
+      friendly_name: In-Law Bedroom Shades West
+      supported_features: 15
+      state: open
+    cover.in_law_bedroom_shades_east_window_covering:
+      current_position: 100
+      friendly_name: In-Law Bedroom Shades East
+      supported_features: 15
+      state: open
+    cover.guest_room_shades_left_window_covering:
+      current_position: 100
+      friendly_name: Guest Room Shades Left
+      supported_features: 15
+      state: open
+    cover.guest_room_shades_right_window_covering:
+      current_position: 100
+      friendly_name: Guest Room Shades right
+      supported_features: 15
+      state: open
+  icon: mdi:blinds-open
+- id: '1649638034196'
+  name: Zebra Office
+  entities:
+    cover.office_shades_left_window_covering:
+      current_position: 3
+      friendly_name: Office Shades Left
+      supported_features: 15
+      state: open
+    cover.office_shades_right_window_covering:
+      current_position: 2
+      friendly_name: Office Shades Right
+      supported_features: 15
+      state: open
+    cover.office_shades_west_window_covering:
+      current_position: 2
+      friendly_name: Office Shades West
+      supported_features: 15
+      state: open
+  icon: mdi:blinds-open

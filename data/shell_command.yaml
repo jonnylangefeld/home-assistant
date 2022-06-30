@@ -1,0 +1,2 @@
+upload_backup: python /config/backup.py
+install_gpg: apk add gnupg
