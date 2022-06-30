@@ -46,14 +46,14 @@
       friendly_name: In-Law Bedroom Shades North
       supported_features: 15
       state: open
+    cover.in_law_bedroom_shades_east_window_covering:
+      current_position: 14
+      friendly_name: In-Law Bedroom Shades East
+      supported_features: 15
+      state: open
     cover.bedroom_shades_right_window_covering:
       current_position: 3
       friendly_name: Bedroom Shades Right
-      supported_features: 15
-      state: open
-    cover.in_law_bedroom_shades_east_window_covering:
-      current_position: 3
-      friendly_name: In-Law Bedroom Shades East
       supported_features: 15
       state: open
     cover.guest_room_shades_left_window_covering:
