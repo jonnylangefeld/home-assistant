@@ -784,13 +784,6 @@
   - service: shell_command.upload_backup
     data: {}
   mode: single
-- id: '1656458031247'
-  alias: 'Backup: Sonoff Zigbee 3.0 Dongle - Monthly rotation'
-  description: ''
-  use_blueprint:
-    path: mdeweerd/backup_znp.yaml
-    input:
-      backup_time: 00:00:00
 - id: '1656478609433'
   alias: 'Studio Mckenzie: Half Way at Sunrise'
   description: ''
