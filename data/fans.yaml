@@ -30,3 +30,26 @@
         target:
           entity_id:
             - light.master_bath_fan_on_off
+
+- platform: template
+  fans:
+    gym:
+      unique_id: gym
+      friendly_name: "gym fan"
+      value_template: "{{ states('input_boolean.gym_fan_state') }}"
+      percentage_template: "{{ states('input_number.gym_fan_percentage') }}"
+      <<: &broadlink_fan # inspired by https://github.com/thomasloven/hass-config/wiki/Misc-tricks#merge-key-
+        turn_on:
+          service: script.broadlink_fan_on
+          data:
+            entity: '{{ this.object_id }}'
+        turn_off:
+          service: script.broadlink_fan_off
+          data:
+            entity: '{{ this.object_id }}'
+        set_percentage:
+          service: script.broadlink_fan_set_speed
+          data:
+            percentage: "{{ percentage }}"
+            entity: '{{ this.object_id }}'
+        speed_count: 7

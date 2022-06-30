@@ -52,6 +52,8 @@ scene: !include scenes.yaml
 light: !include lights.yaml
 fan: !include fans.yaml
 sensor: !include sensors.yaml
+input_boolean: !include input_booleans.yaml
+input_number: !include input_numbers.yaml
 shell_command: !include shell_commands.yaml
 
 # supposedly the new template platform, but doesn't work for me yet

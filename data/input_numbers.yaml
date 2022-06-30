@@ -1,0 +1,4 @@
+gym_fan_percentage:
+  name: gym fan percentage
+  min: 0
+  max: 100

@@ -1,0 +1,85 @@
+### Broadlink Fan ###
+broadlink_fan_on:
+  alias: Broadlink Fan On
+  sequence:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.{{ entity }}_fan_state
+  - service: remote.send_command
+    data:
+      device: fan
+      command: wind down
+      hold_secs: 0.2
+      num_repeats: 7
+      delay_secs: 0.9
+    target:
+      entity_id: remote.{{ entity }}_broadlink_remote
+  - service: remote.send_command
+    data:
+      device: fan
+      command: wind up
+      hold_secs: 0.2
+      num_repeats: '{{ (((states("input_number." ~ entity ~ "_fan_percentage") | int) / 100) * 7) | round | int }}'
+      delay_secs: 0.9
+    target:
+      entity_id: remote.{{ entity }}_broadlink_remote
+  mode: restart
+
+broadlink_fan_off:
+  alias: Broadlink Fan Off
+  sequence:
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.{{ entity }}_fan_state
+  - service: remote.send_command
+    data:
+      device: fan
+      command: wind down
+      hold_secs: 0.2
+      num_repeats: 7
+      delay_secs: 0.9
+    target:
+      entity_id: remote.{{ entity }}_broadlink_remote
+  mode: restart
+
+broadlink_fan_set_speed:
+  alias: Broadlink Fan Set Speed
+  sequence:
+  - if:
+    - alias: "If set to 0"
+      condition: template
+      value_template: '{{ percentage == 0 }}'
+    then:
+    - alias: "Turn off"
+      service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.{{ entity }}_fan_state
+    else:
+    - alias: "Turn on"
+      service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.{{ entity }}_fan_state
+  - service: input_number.set_value
+    target:
+      entity_id: input_number.{{ entity }}_fan_percentage
+    data:
+      value: '{{ percentage }}'
+  - service: remote.send_command
+    data:
+      device: fan
+      command: wind down
+      hold_secs: 0.2
+      num_repeats: 7
+      delay_secs: 0.9
+    target:
+      entity_id: remote.{{ entity }}_broadlink_remote
+  - service: remote.send_command
+    data:
+      device: fan
+      command: wind up
+      hold_secs: 0.2
+      num_repeats: '{{ ((percentage / 100) * 7) | round | int }}'
+      delay_secs: 0.9
+    target:
+      entity_id: remote.{{ entity }}_broadlink_remote
+  mode: restart
