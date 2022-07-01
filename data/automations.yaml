@@ -53,10 +53,10 @@
     device_id: 2ef931c4d14fb9280be5ea283bfb0d15
     entity_id: light.bed_mckenzie
     domain: light
-  - type: turn_off
-    device_id: c9789ac3d839cb3ae66b3963a7866439
-    entity_id: switch.air_purifier_socket_1
-    domain: switch
+  - service: homeassistant.turn_off
+    data: {}
+    target:
+      entity_id: switch.gosund_03
   mode: single
 - id: '1643168835282'
   alias: Bedroom Philips Switch off
