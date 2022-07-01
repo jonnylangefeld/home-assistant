@@ -3,7 +3,7 @@ import json, subprocess, glob, os
 from datetime import datetime
 
 backups_dir = "/config/backups/"
-history_limit = 3
+history_limit = 30
 with open('/config/backup-secrets.json', 'r') as f:
     secrets = json.load(f)
 
