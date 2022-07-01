@@ -655,7 +655,7 @@
   trigger:
   - platform: numeric_state
     entity_id: sensor.sun_azimuth
-    above: '275'
+    above: '285'
   condition: []
   action:
   - service: cover.open_cover
@@ -703,7 +703,7 @@
       entity_id: scene.zebra_office
   mode: single
 - id: '1656372852138'
-  alias: 'Office: Close Shades When Midnight'
+  alias: 'Office: Close Shades At Midnight'
   description: ''
   trigger:
   - platform: time
@@ -742,10 +742,12 @@
     offset: 0
   condition: []
   action:
-  - type: turn_on
-    device_id: d24b8ab5e84bf9b240bb9ac744fbc25c
-    entity_id: switch.deck_string_lights
-    domain: switch
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id:
+      - light.backyard_string_lights
+      - light.deck_string_lights
   mode: single
 - id: '1656453767827'
   alias: 'Backup: Nightly'
@@ -821,10 +823,12 @@
     at: 00:00:00
   condition: []
   action:
-  - type: turn_off
-    device_id: d24b8ab5e84bf9b240bb9ac744fbc25c
-    entity_id: switch.deck_string_lights
-    domain: switch
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id:
+      - light.deck_string_lights
+      - light.backyard_string_lights
   mode: single
 - id: '1656566863995'
   alias: 'Backup: Install gpg on Startup'

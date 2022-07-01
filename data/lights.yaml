@@ -95,3 +95,6 @@
 - platform: switch
   name: Deck String Lights
   entity_id: switch.deck_string_lights
+- platform: switch
+  name: Backyard String Lights
+  entity_id: switch.backyard_string_lights
