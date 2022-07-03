@@ -24,8 +24,8 @@
     target:
       entity_id: light.entryway
   mode: restart
-- alias: '[Bedroom] Bedroom Philips Switch on'
-  id: '1643163679019'
+- id: '1643163679019'
+  alias: '[Bedroom] Philips Switch on'
   description: ''
   trigger:
   - platform: event
@@ -951,7 +951,7 @@
   action:
   - service: notify.mobile_app_jonnys_iphone
     data:
-      message: 'Someone is leaving home. Who you ask? {{ trigger.to_state.friendly_name }}!'
+      message: Someone is leaving home. Who you ask? {{ trigger.to_state.friendly_name }}!
   - service: cover.close_cover
     data: {}
     target:
@@ -1057,4 +1057,22 @@
     data: {}
     target:
       entity_id: vacuum.the_langefelds_cleaning_robot
+  mode: single
+- id: '1656828277101'
+  alias: '[Bedroom] Lower Shades When Lights on After Sunset'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - group.bedroom_lights
+    to: 'on'
+  condition:
+  - condition: numeric_state
+    entity_id: sensor.sun_elevation
+    below: '-10'
+  action:
+  - service: cover.close_cover
+    data: {}
+    target:
+      area_id: bedroom
   mode: single

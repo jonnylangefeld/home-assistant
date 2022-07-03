@@ -1,9 +1,7 @@
-# downstairs:
-#   name: Downstairs
-#   entities:
-#     - light.entryway
-#     - light.dining_room
-#     - light.living_room
-#     - light.kitchen
-#     - light.light
-#     - switch.gosund_01
+bedroom_lights:
+  name: Bedroom Lights
+  entities:
+    - light.bed_jonny
+    - light.bed_jonny
+    - light.holmo_left
+    - light.holmo_right

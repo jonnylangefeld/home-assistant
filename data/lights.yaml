@@ -98,3 +98,6 @@
 - platform: switch
   name: Backyard String Lights
   entity_id: switch.backyard_string_lights
+- platform: switch
+  name: Living Room Quartz Stone Lamp
+  entity_id: switch.gosund_01
