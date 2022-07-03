@@ -353,7 +353,7 @@
       state: open
   icon: mdi:blinds-open
 - id: '1649638034196'
-  name: Zebra Office
+  name: Office Zebra
   entities:
     cover.office_shades_left_window_covering:
       current_position: 3
@@ -367,6 +367,25 @@
       state: open
     cover.office_shades_west_window_covering:
       current_position: 2
+      friendly_name: Office Shades West
+      supported_features: 15
+      state: open
+  icon: mdi:blinds-open
+- id: '1649638034197'
+  name: Office Half Zebra
+  entities:
+    cover.office_shades_left_window_covering:
+      current_position: 49
+      friendly_name: Office Shades Left
+      supported_features: 15
+      state: open
+    cover.office_shades_right_window_covering:
+      current_position: 49
+      friendly_name: Office Shades Right
+      supported_features: 15
+      state: open
+    cover.office_shades_west_window_covering:
+      current_position: 49
       friendly_name: Office Shades West
       supported_features: 15
       state: open
