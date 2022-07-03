@@ -437,7 +437,7 @@
     metadata: {}
   mode: single
 - id: '1649809832820'
-  alias: '[Bedroom Bathroom] Close Shades After Sunset on Weekdays'
+  alias: '[Bedroom] Close Shades After Sunset on Weekdays'
   description: ''
   trigger:
   - platform: sun
@@ -451,11 +451,10 @@
     target:
       area_id:
       - bedroom
-      - master_bath
     data: {}
   mode: single
 - id: '1649809832821'
-  alias: '[Bedroom Bathroom] Close at Midnight on Weekends'
+  alias: '[Bedroom] Close at Midnight on Weekends'
   description: ''
   trigger:
   - platform: time
@@ -468,7 +467,6 @@
     target:
       area_id:
       - bedroom
-      - master_bath
     data: {}
   mode: single
 - id: '1649809901391'
@@ -951,7 +949,8 @@
   action:
   - service: notify.mobile_app_jonnys_iphone
     data:
-      message: Someone is leaving home. Who you ask? {{ trigger.to_state.friendly_name }}!
+      message: Someone is leaving home. Who you ask? {{ trigger.to_state.friendly_name
+        }}!
   - service: cover.close_cover
     data: {}
     target:
@@ -1075,4 +1074,18 @@
     data: {}
     target:
       area_id: bedroom
+  mode: single
+- id: '1656830319140'
+  alias: '[Bathroom] Close Shades at Sunset'
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: 00:30:00
+  condition: []
+  action:
+  - service: cover.close_cover
+    data: {}
+    target:
+      area_id: master_bath
   mode: single
