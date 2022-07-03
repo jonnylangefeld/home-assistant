@@ -1,0 +1,6 @@
+home:
+  devices:
+    - person.jonny
+    - person.mckenzie
+  tolerance: 30
+  unit_of_measurement: m

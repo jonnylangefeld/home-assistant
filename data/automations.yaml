@@ -550,7 +550,7 @@
     stored_traces: 30
   mode: restart
 - id: '1656372517250'
-  alias: '[Office] Block Sun'
+  alias: '[Office] Block Sun 1'
   description: ''
   trigger:
   - platform: numeric_state
@@ -560,11 +560,26 @@
   action:
   - service: cover.set_cover_position
     data:
-      position: 56
+      position: 40
     target:
       entity_id: cover.office_shades_west_window_covering
   mode: single
 - id: '1656372517251'
+  alias: '[Office] Block Sun 2'
+  description: ''
+  trigger:
+  - platform: numeric_state
+    entity_id: sensor.sun_azimuth
+    above: '265'
+  condition: []
+  action:
+  - service: cover.set_cover_position
+    data:
+      position: 56
+    target:
+      entity_id: cover.office_shades_west_window_covering
+  mode: single
+- id: '1656372517252'
   alias: '[Office] Open after Block Sun'
   description: ''
   trigger:
@@ -887,3 +902,159 @@
     target:
       entity_id: light.sonoff_01minizb_on_off
   mode: restart
+- id: '1656805530782'
+  alias: '[Zones] Coming Home at Night'
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id:
+    - person.jonny
+    - person.mckenzie
+    zone: zone.coming_home
+    event: enter
+  condition:
+  - condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+  - service: notify.mobile_app_jonnys_iphone
+    data:
+      message: Someone is coming home at night
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id:
+      - light.sonoff_01minizb_on_off
+      - light.porch_lights_1_on_off
+  - delay:
+      hours: 0
+      minutes: 15
+      seconds: 0
+      milliseconds: 0
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id:
+      - light.sonoff_01minizb_on_off
+      - light.porch_lights_1_on_off
+  mode: single
+- id: '1656805530783'
+  alias: '[Zones] Someone Leaving Home'
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id:
+    - person.jonny
+    - person.mckenzie
+    zone: zone.home
+    event: leave
+  action:
+  - service: notify.mobile_app_jonnys_iphone
+    data:
+      message: 'Someone is leaving home. Who you ask? {{ trigger.to_state.friendly_name }}!'
+  - service: cover.close_cover
+    data: {}
+    target:
+      entity_id:
+      - cover.garage_door
+  mode: single
+- id: '1656805530900'
+  alias: '[Zones] Everyone Leaving Home'
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id:
+    - person.jonny
+    - person.mckenzie
+    zone: zone.home
+    event: leave
+  condition:
+  - condition: state
+    entity_id: zone.home
+    state: '0'
+  action:
+  - service: notify.mobile_app_jonnys_iphone
+    data:
+      message: Everyone is leaving home
+  mode: restart
+- id: '1656805530784'
+  alias: '[Zones] Jonny Coming Home Wide'
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id:
+    - person.jonny
+    zone: zone.coming_home
+    event: enter
+  action:
+  - service: notify.mobile_app_jonnys_iphone
+    data:
+      message: Jonny is coming home wide
+  mode: single
+- id: '1656805530785'
+  alias: '[Zones] Jonny Leaving Home Wide'
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id:
+    - person.jonny
+    zone: zone.coming_home
+    event: leave
+  action:
+  - service: notify.mobile_app_jonnys_iphone
+    data:
+      message: Jonny is leaving home wide
+  - service: cover.close_cover
+    data: {}
+    target:
+      entity_id: cover.garage_door
+  mode: single
+- id: '1656805530786'
+  alias: '[Zones] Jonny Coming Home Near'
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id:
+    - person.jonny
+    zone: zone.home
+    event: enter
+  action:
+  - service: notify.mobile_app_jonnys_iphone
+    data:
+      message: Jonny is coming home near
+  mode: single
+- id: '1656805530787'
+  alias: '[Zones] Jonny Leaving Home Near'
+  description: ''
+  trigger:
+  - platform: zone
+    entity_id:
+    - person.jonny
+    zone: zone.home
+    event: leave
+  action:
+  - service: notify.mobile_app_jonnys_iphone
+    data:
+      message: Jonny is leaving home near
+  - service: cover.close_cover
+    data: {}
+    target:
+      entity_id: cover.garage_door
+  mode: single
+- id: '1656808644001'
+  alias: '[Living Room] Start Cleaner'
+  description: ''
+  trigger:
+  - platform: time
+    at: 07:30:00
+  condition:
+  - condition: time
+    weekday:
+    - tue
+    - fri
+  action:
+  - service: vacuum.start
+    data: {}
+    target:
+      entity_id: vacuum.the_langefelds_cleaning_robot
+  mode: single
