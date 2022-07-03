@@ -52,7 +52,7 @@
       supported_features: 15
       state: open
     cover.bedroom_shades_right_window_covering:
-      current_position: 3
+      current_position: 2
       friendly_name: Bedroom Shades Right
       supported_features: 15
       state: open
