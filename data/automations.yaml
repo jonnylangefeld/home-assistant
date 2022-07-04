@@ -900,6 +900,36 @@
     target:
       entity_id: light.garage_light
   mode: restart
+- id: '1656797941815'
+  alias: '[Closet] Turn on When Motion Detected'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.closet_motion
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: light.turn_on
+    data: {}
+    target:
+      entity_id: light.closet_lights
+  - wait_for_trigger:
+    - platform: state
+      entity_id:
+      - binary_sensor.closet_motion
+      from: 'on'
+      to: 'off'
+      for:
+        hours: 0
+        minutes: 3
+        seconds: 0
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id: light.closet_lights
+  mode: restart
 - id: '1656805530782'
   alias: '[Zones] Someone Coming Home at Night'
   description: ''
