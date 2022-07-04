@@ -926,7 +926,7 @@
       - light.porch_lights_1_on_off
   - delay:
       hours: 0
-      minutes: 15
+      minutes: 12
       seconds: 0
       milliseconds: 0
   - service: light.turn_off
@@ -949,8 +949,7 @@
   action:
   - service: notify.mobile_app_jonnys_iphone
     data:
-      message: Someone is leaving home. Who you ask? {{ trigger.to_state.friendly_name
-        }}!
+      message: Someone is leaving home. Who you ask? {{ trigger.to_state.name }}!
   - service: cover.close_cover
     data: {}
     target:
