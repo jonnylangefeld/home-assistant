@@ -901,7 +901,7 @@
       entity_id: light.garage_light
   mode: restart
 - id: '1656805530782'
-  alias: '[Zones] Coming Home at Night'
+  alias: '[Zones] Someone Coming Home at Night'
   description: ''
   trigger:
   - platform: zone
