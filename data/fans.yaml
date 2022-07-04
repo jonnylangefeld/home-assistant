@@ -16,17 +16,17 @@
             - light.powder_bath_fan_on_off
 - platform: template
   fans:
-    master_bath_fan:
-      unique_id: master_bath_fan
-      friendly_name: "Master Bath Fan"
-      value_template: "{{ states('light.master_bath_fan_on_off') }}"
+    bathroom_fan:
+      unique_id: bathroom_fan
+      friendly_name: "Bathroom Fan"
+      value_template: "{{ states('light.bathroom_fan') }}"
       turn_on:
         service: light.turn_on
         target:
           entity_id:
-            - light.master_bath_fan_on_off
+            - light.bathroom_fan
       turn_off:
         service: light.turn_off
         target:
           entity_id:
-            - light.master_bath_fan_on_off
+            - light.bathroom_fan

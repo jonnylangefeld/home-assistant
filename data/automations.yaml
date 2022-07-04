@@ -229,13 +229,13 @@
     domain: light
   mode: single
 - id: '1645931965006'
-  alias: '[Master Bath] Fan Off After 5 Minutes'
+  alias: '[Bathroom] Fan Off After 5 Minutes'
   description: ''
   trigger:
   - platform: device
     type: turned_on
     device_id: 00cb693ee81a1b6d9c6bd23815870132
-    entity_id: light.master_bath_fan_on_off
+    entity_id: light.bathroom_fan
     domain: light
   condition: []
   action:
@@ -246,7 +246,7 @@
       milliseconds: 0
   - type: turn_off
     device_id: 00cb693ee81a1b6d9c6bd23815870132
-    entity_id: light.master_bath_fan_on_off
+    entity_id: light.bathroom_fan
     domain: light
   mode: single
 - id: '1646444415698'
@@ -266,7 +266,7 @@
   - service: cover.open_cover
     target:
       area_id:
-      - master_bath
+      - bathroom
       - bedroom
   - wait_for_trigger:
     - platform: event
@@ -280,7 +280,7 @@
   - service: cover.stop_cover
     target:
       area_id:
-      - master_bath
+      - bathroom
       - bedroom
   mode: single
 - id: '1646444415699'
@@ -300,7 +300,7 @@
   - service: cover.close_cover
     target:
       area_id:
-      - master_bath
+      - bathroom
       - bedroom
   - wait_for_trigger:
     - platform: event
@@ -314,7 +314,7 @@
   - service: cover.stop_cover
     target:
       area_id:
-      - master_bath
+      - bathroom
       - bedroom
   mode: single
 - id: '1646444415700'
@@ -334,7 +334,7 @@
   - service: cover.open_cover
     target:
       area_id:
-      - master_bath
+      - bathroom
       - bedroom
     data: {}
   - wait_for_trigger:
@@ -353,14 +353,14 @@
         service: stop_cover
         service_data:
           area_id:
-          - master_bath
+          - bathroom
     - platform: template
-      value_template: '{{ state_attr(''cover.master_bath_shades_window_covering'',
-        ''current_position'') == 100 }}'
+      value_template: '{{ state_attr(''cover.bathroom_shades_window_covering'', ''current_position'')
+        == 100 }}'
   - service: cover.stop_cover
     target:
       area_id:
-      - master_bath
+      - bathroom
       - bedroom
     data: {}
   mode: single
@@ -381,7 +381,7 @@
   - service: cover.close_cover
     target:
       area_id:
-      - master_bath
+      - bathroom
       - bedroom
     data: {}
   - wait_for_trigger:
@@ -400,14 +400,14 @@
         service: stop_cover
         service_data:
           area_id:
-          - master_bath
+          - bathroom
     - platform: template
-      value_template: '{{ state_attr(''cover.master_bath_shades_window_covering'',
-        ''current_position'') == 0 }}'
+      value_template: '{{ state_attr(''cover.bathroom_shades_window_covering'', ''current_position'')
+        == 0 }}'
   - service: cover.stop_cover
     target:
       area_id:
-      - master_bath
+      - bathroom
       - bedroom
     data: {}
   mode: single
@@ -481,7 +481,7 @@
     target:
       area_id:
       - bedroom
-      - master_bath
+      - bathroom
   mode: single
 - id: '1655012655407'
   alias: '[Thermostat Upstairs] Reset Thermostat During Hot Temperatures'
@@ -727,7 +727,7 @@
     data:
       position: 52
     target:
-      entity_id: cover.in_law_living_room_shades_east_window_covering
+      entity_id: cover.studio_mckenzie_shades_east_window_covering
   mode: single
 - id: '1656478832786'
   alias: '[Studio Mckenzie] Zebra Half Way at Noon'
@@ -741,7 +741,7 @@
     data:
       position: 64
     target:
-      entity_id: cover.in_law_living_room_shades_east_window_covering
+      entity_id: cover.studio_mckenzie_shades_east_window_covering
   mode: single
 - id: '1656482455479'
   alias: '[Backyard] Turn off String Lights'
@@ -860,7 +860,7 @@
     data: {}
     target:
       entity_id:
-      - light.sonoff_01minizb_on_off
+      - light.garage_light
       - light.porch_lights_1_on_off
   - delay:
       hours: 0
@@ -871,7 +871,7 @@
     data: {}
     target:
       entity_id:
-      - light.sonoff_01minizb_on_off
+      - light.garage_light
       - light.porch_lights_1_on_off
   mode: single
 - id: '1656797941814'
@@ -888,7 +888,7 @@
   - service: light.turn_on
     data: {}
     target:
-      entity_id: light.sonoff_01minizb_on_off
+      entity_id: light.garage_light
   - wait_for_trigger:
     - platform: state
       entity_id:
@@ -898,7 +898,7 @@
   - service: light.turn_off
     data: {}
     target:
-      entity_id: light.sonoff_01minizb_on_off
+      entity_id: light.garage_light
   mode: restart
 - id: '1656805530782'
   alias: '[Zones] Coming Home at Night'
@@ -922,7 +922,7 @@
     data: {}
     target:
       entity_id:
-      - light.sonoff_01minizb_on_off
+      - light.garage_light
       - light.porch_lights_1_on_off
   - delay:
       hours: 0
@@ -933,7 +933,7 @@
     data: {}
     target:
       entity_id:
-      - light.sonoff_01minizb_on_off
+      - light.garage_light
       - light.porch_lights_1_on_off
   mode: single
 - id: '1656805530783'
@@ -1086,5 +1086,5 @@
   - service: cover.close_cover
     data: {}
     target:
-      area_id: master_bath
+      area_id: bathroom
   mode: single
