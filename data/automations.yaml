@@ -437,7 +437,7 @@
     metadata: {}
   mode: single
 - id: '1649809832820'
-  alias: '[Bedroom] Close Shades After Sunset on Weekdays'
+  alias: '[Bedroom] Zebra Shades After Sunset on Weekdays'
   description: ''
   trigger:
   - platform: sun
@@ -447,21 +447,18 @@
   - condition: template
     value_template: '{{ now().strftime(''%a'') not in ["Sat", "Sun"] }}'
   action:
-  - service: cover.close_cover
-    target:
-      area_id:
-      - bedroom
+  - service: switch.turn_on
     data: {}
+    target:
+      entity_id: switch.bedroom_zebra
   mode: single
 - id: '1649809832821'
-  alias: '[Bedroom] Close at Midnight on Weekends'
+  alias: '[Bedroom] Close at Midnight'
   description: ''
   trigger:
   - platform: time
     at: 00:00:00
-  condition:
-  - condition: template
-    value_template: '{{ now().strftime(''%a'') in ["Sat", "Sun"] }}'
+  condition: []
   action:
   - service: cover.close_cover
     target:
@@ -843,7 +840,7 @@
       - climate.lyric_345067
   mode: single
 - id: '1656793075573'
-  alias: '[Porch] Turn on When Garage Opens at Night'
+  alias: '[Garage Porch] Turn on When Garage Opens at Night'
   description: ''
   trigger:
   - platform: state
@@ -1117,4 +1114,17 @@
     data: {}
     target:
       area_id: bathroom
+  mode: single
+- id: '1657004233728'
+  alias: '[Entryway] Half Zebra in the Afternoon'
+  description: ''
+  trigger:
+  - platform: time
+    at: '12:00:00'
+  condition: []
+  action:
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id: switch.entryway_zebra_half
   mode: single
