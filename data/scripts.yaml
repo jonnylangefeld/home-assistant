@@ -1,0 +1,44 @@
+set_cover:
+  alias: Set Cover
+  mode: parallel
+  sequence:
+  - service: input_number.set_value
+    target:
+      entity_id: input_number.{{ entity }}_last
+    data:
+      value: '{{ state_attr("cover." ~ entity ~ "_window_covering", "current_position") }}'
+  - service: cover.set_cover_position
+    target:
+      entity_id: cover.{{ entity }}_window_covering
+    data:
+      position: '{{ states("input_number." ~ entity ~ "_" ~ type) }}'
+set_covers:
+  alias: Set Covers
+  mode: parallel
+  sequence:
+  - repeat:
+      for_each: "{{ entities }}"
+      sequence:
+      - service: script.set_cover
+        data:
+          entity: "{{ repeat.item }}"
+          type: "{{ type }}"
+reset_cover:
+  alias: Reset Cover
+  mode: parallel
+  sequence:
+  - service: cover.set_cover_position
+    target:
+      entity_id: cover.{{ entity }}_window_covering
+    data:
+      position: '{{ states("input_number." ~ entity ~ "_last") }}'
+reset_covers:
+  alias: Reset Covers
+  mode: parallel
+  sequence:
+  - repeat:
+      for_each: "{{ entities }}"
+      sequence:
+      - service: script.reset_cover
+        data:
+          entity: "{{ repeat.item }}"

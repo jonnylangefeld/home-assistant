@@ -53,6 +53,8 @@ light: !include lights.yaml
 fan: !include fans.yaml
 sensor: !include sensors.yaml
 proximity: !include proximities.yaml
+input_number: !include input_numbers.yaml
+switch: !include switches.yaml
 shell_command: !include shell_commands.yaml
 
 # supposedly the new template platform, but doesn't work for me yet

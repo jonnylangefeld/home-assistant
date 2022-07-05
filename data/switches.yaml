@@ -1,0 +1,292 @@
+- platform: template
+  switches:
+    office_zebra:
+      unique_id: office_zebra
+      friendly_name: Office Zebra
+      value_template: >
+        {{ 
+          (state_attr('cover.office_shades_left_window_covering', 'current_position') - (states('input_number.office_shades_left_zebra') | int)) | abs <= 1 and
+          (state_attr('cover.office_shades_right_window_covering', 'current_position') - (states('input_number.office_shades_right_zebra') | int)) | abs <= 1 and
+          (state_attr('cover.office_shades_west_window_covering', 'current_position') - (states('input_number.office_shades_west_zebra') | int)) | abs <= 1
+        }}
+      turn_on:
+        service: script.set_covers
+        data:
+          entities: &office
+          - office_shades_left
+          - office_shades_right
+          - office_shades_west
+          type: zebra
+      turn_off:
+        service: script.reset_covers
+        data:
+          entities: *office
+- platform: template
+  switches:
+    office_zebra_half:
+      unique_id: office_zebra_half
+      friendly_name: Office Half Zebra
+      value_template: >
+        {{ 
+          (state_attr('cover.office_shades_left_window_covering', 'current_position') - (states('input_number.office_shades_left_zebra_half') | int)) | abs <= 1 and
+          (state_attr('cover.office_shades_right_window_covering', 'current_position') - (states('input_number.office_shades_right_zebra_half') | int)) | abs <= 1 and
+          (state_attr('cover.office_shades_west_window_covering', 'current_position') - (states('input_number.office_shades_west_zebra_half') | int)) | abs <= 1
+        }}
+      turn_on:
+        service: script.set_covers
+        data:
+          entities: *office
+          type: zebra_half
+      turn_off:
+        service: script.reset_covers
+        data:
+          entities: *office
+
+- platform: template
+  switches:
+    bathroom_zebra:
+      unique_id: bathroom_zebra
+      friendly_name: Bathroom Zebra
+      value_template: >
+        {{ 
+          (state_attr('cover.bathroom_shades_window_covering', 'current_position') - (states('input_number.bathroom_shades_zebra') | int)) | abs <= 1
+        }}
+      turn_on:
+        service: script.set_covers
+        data:
+          entities: &bathroom
+          - bathroom_shades
+          type: zebra
+      turn_off:
+        service: script.reset_covers
+        data:
+          entities: *bathroom
+- platform: template
+  switches:
+    bathroom_zebra_half:
+      unique_id: bathroom_zebra_half
+      friendly_name: Bathroom Half Zebra
+      value_template: >
+        {{ 
+          (state_attr('cover.bathroom_shades_window_covering', 'current_position') - (states('input_number.bathroom_shades_zebra_half') | int)) | abs <= 1
+        }}
+      turn_on:
+        service: script.set_covers
+        data:
+          entities: *bathroom
+          type: zebra_half
+      turn_off:
+        service: script.reset_covers
+        data:
+          entities: *bathroom
+
+- platform: template
+  switches:
+    entryway_zebra:
+      unique_id: entryway_zebra
+      friendly_name: Entryway Zebra
+      value_template: >
+        {{ 
+          (state_attr('cover.entryway_shades_left_window_covering', 'current_position') - (states('input_number.entryway_shades_left_zebra') | int)) | abs <= 1 and
+          (state_attr('cover.entryway_shades_right_window_covering', 'current_position') - (states('input_number.entryway_shades_right_zebra') | int)) | abs <= 1
+        }}
+      turn_on:
+        service: script.set_covers
+        data:
+          entities: &entryway
+          - entryway_shades_left
+          - entryway_shades_right
+          type: zebra
+      turn_off:
+        service: script.reset_covers
+        data:
+          entities: *entryway
+- platform: template
+  switches:
+    entryway_zebra_half:
+      unique_id: entryway_zebra_half
+      friendly_name: Entryway Half Zebra
+      value_template: >
+        {{ 
+          (state_attr('cover.entryway_shades_left_window_covering', 'current_position') - (states('input_number.entryway_shades_left_zebra_half') | int)) | abs <= 1 and
+          (state_attr('cover.entryway_shades_right_window_covering', 'current_position') - (states('input_number.entryway_shades_right_zebra_half') | int)) | abs <= 1
+        }}
+      turn_on:
+        service: script.set_covers
+        data:
+          entities: *entryway
+          type: zebra_half
+      turn_off:
+        service: script.reset_covers
+        data:
+          entities: *entryway
+
+- platform: template
+  switches:
+    studio_mckenzie_zebra:
+      unique_id: studio_mckenzie_zebra
+      friendly_name: Studio Mckenzie Zebra
+      value_template: >
+        {{ 
+          (state_attr('cover.studio_mckenzie_shades_east_window_covering', 'current_position') - (states('input_number.studio_mckenzie_shades_east_zebra') | int)) | abs <= 1 and
+          (state_attr('cover.studio_mckenzie_shades_west_window_covering', 'current_position') - (states('input_number.studio_mckenzie_shades_west_zebra') | int)) | abs <= 1
+        }}
+      turn_on:
+        service: script.set_covers
+        data:
+          entities: &studio_mckenzie
+          - studio_mckenzie_shades_east
+          - studio_mckenzie_shades_west
+          type: zebra
+      turn_off:
+        service: script.reset_covers
+        data:
+          entities: *studio_mckenzie
+- platform: template
+  switches:
+    studio_mckenzie_zebra_half:
+      unique_id: studio_mckenzie_zebra_half
+      friendly_name: Studio Mckenzie Half Zebra
+      value_template: >
+        {{ 
+          (state_attr('cover.studio_mckenzie_shades_east_window_covering', 'current_position') - (states('input_number.studio_mckenzie_shades_east_zebra_half') | int)) | abs <= 1 and
+          (state_attr('cover.studio_mckenzie_shades_west_window_covering', 'current_position') - (states('input_number.studio_mckenzie_shades_west_zebra_half') | int)) | abs <= 1
+        }}
+      turn_on:
+        service: script.set_covers
+        data:
+          entities: *studio_mckenzie
+          type: zebra_half
+      turn_off:
+        service: script.reset_covers
+        data:
+          entities: *studio_mckenzie
+
+- platform: template
+  switches:
+    studio_missy_zebra:
+      unique_id: studio_missy_zebra
+      friendly_name: Studio Missy Zebra
+      value_template: >
+        {{ 
+          (state_attr('cover.studio_missy_shades_west_window_covering', 'current_position') - (states('input_number.studio_missy_shades_west_zebra') | int)) | abs <= 1 and
+          (state_attr('cover.studio_missy_shades_north_window_covering', 'current_position') - (states('input_number.studio_missy_shades_north_zebra') | int)) | abs <= 1 and
+          (state_attr('cover.studio_missy_shades_east_window_covering', 'current_position') - (states('input_number.studio_missy_shades_east_zebra') | int)) | abs <= 1
+        }}
+      turn_on:
+        service: script.set_covers
+        data:
+          entities: &studio_missy
+          - studio_missy_shades_west
+          - studio_missy_shades_north
+          - studio_missy_shades_east
+          type: zebra
+      turn_off:
+        service: script.reset_covers
+        data:
+          entities: *studio_missy
+- platform: template
+  switches:
+    studio_missy_zebra_half:
+      unique_id: studio_missy_zebra_half
+      friendly_name: Studio Missy Half Zebra
+      value_template: >
+        {{ 
+          (state_attr('cover.studio_missy_shades_west_window_covering', 'current_position') - (states('input_number.studio_missy_shades_west_zebra_half') | int)) | abs <= 1 and
+          (state_attr('cover.studio_missy_shades_north_window_covering', 'current_position') - (states('input_number.studio_missy_shades_north_zebra_half') | int)) | abs <= 1 and
+          (state_attr('cover.studio_missy_shades_east_window_covering', 'current_position') - (states('input_number.studio_missy_shades_east_zebra_half') | int)) | abs <= 1
+        }}
+      turn_on:
+        service: script.set_covers
+        data:
+          entities: *studio_missy
+          type: zebra_half
+      turn_off:
+        service: script.reset_covers
+        data:
+          entities: *studio_missy
+
+- platform: template
+  switches:
+    guest_room_zebra:
+      unique_id: guest_room_zebra
+      friendly_name: Guest Room Zebra
+      value_template: >
+        {{ 
+          (state_attr('cover.guest_room_shades_left_window_covering', 'current_position') - (states('input_number.guest_room_shades_left_zebra') | int)) | abs <= 1 and
+          (state_attr('cover.guest_room_shades_right_window_covering', 'current_position') - (states('input_number.guest_room_shades_right_zebra') | int)) | abs <= 1
+        }}
+      turn_on:
+        service: script.set_covers
+        data:
+          entities: &guest_room
+          - guest_room_shades_left
+          - guest_room_shades_right
+          type: zebra
+      turn_off:
+        service: script.reset_covers
+        data:
+          entities: *guest_room
+- platform: template
+  switches:
+    guest_room_zebra_half:
+      unique_id: guest_room_zebra_half
+      friendly_name: Guest Room Half Zebra
+      value_template: >
+        {{ 
+          (state_attr('cover.guest_room_shades_left_window_covering', 'current_position') - (states('input_number.guest_room_shades_left_zebra_half') | int)) | abs <= 1 and
+          (state_attr('cover.guest_room_shades_right_window_covering', 'current_position') - (states('input_number.guest_room_shades_right_zebra_half') | int)) | abs <= 1
+        }}
+      turn_on:
+        service: script.set_covers
+        data:
+          entities: *guest_room
+          type: zebra_half
+      turn_off:
+        service: script.reset_covers
+        data:
+          entities: *guest_room
+
+- platform: template
+  switches:
+    bedroom_zebra:
+      unique_id: bedroom_zebra
+      friendly_name: Bedroom Zebra
+      value_template: >
+        {{ 
+          (state_attr('cover.bedroom_shades_left_window_covering', 'current_position') - (states('input_number.bedroom_shades_left_zebra') | int)) | abs <= 1 and
+          (state_attr('cover.bedroom_shades_right_window_covering', 'current_position') - (states('input_number.bedroom_shades_right_zebra') | int)) | abs <= 1 and
+          (state_attr('cover.bedroom_shades_east_window_covering', 'current_position') - (states('input_number.bedroom_shades_east_zebra') | int)) | abs <= 1
+        }}
+      turn_on:
+        service: script.set_covers
+        data:
+          entities: &bedroom
+          - bedroom_shades_left
+          - bedroom_shades_right
+          - bedroom_shades_east
+          type: zebra
+      turn_off:
+        service: script.reset_covers
+        data:
+          entities: *bedroom
+- platform: template
+  switches:
+    bedroom_zebra_half:
+      unique_id: bedroom_zebra_half
+      friendly_name: Bedroom Half Zebra
+      value_template: >
+        {{ 
+          (state_attr('cover.bedroom_shades_left_window_covering', 'current_position') - (states('input_number.bedroom_shades_left_zebra_half') | int)) | abs <= 1 and
+          (state_attr('cover.bedroom_shades_right_window_covering', 'current_position') - (states('input_number.bedroom_shades_right_zebra_half') | int)) | abs <= 1 and
+          (state_attr('cover.bedroom_shades_east_window_covering', 'current_position') - (states('input_number.bedroom_shades_east_zebra_half') | int)) | abs <= 1
+        }}
+      turn_on:
+        service: script.set_covers
+        data:
+          entities: *bedroom
+          type: zebra_half
+      turn_off:
+        service: script.reset_covers
+        data:
+          entities: *bedroom

@@ -116,54 +116,24 @@
       supported_features: 15
       state: closed
   icon: mdi:blinds
-- id: '1649638034195'
+- id: 'zebra_front'
   name: Zebra Front
   entities:
-    cover.studio_missy_shades_north_window_covering:
-      current_position: 2
-      friendly_name: Studio Missy Shades North
-      supported_features: 15
-      state: open
-    cover.studio_missy_shades_west_window_covering:
-      current_position: 17
-      friendly_name: Studio Missy Shades West
-      supported_features: 15
-      state: open
-    cover.studio_missy_shades_east_window_covering:
-      current_position: 14
-      friendly_name: Studio Missy Shades East
-      supported_features: 15
-      state: open
-    cover.studio_mckenzie_shades_west_window_covering:
-      current_position: 3
-      friendly_name: Studio Mckenzie Shades West
-      supported_features: 15
-      state: open
-    cover.studio_mckenzie_shades_east_window_covering:
-      current_position: 3
-      friendly_name: Studio Mckenzie Shades East
-      supported_features: 15
-      state: open
-    cover.entryway_shades_left_window_covering:
-      current_position: 2
-      friendly_name: Entryway Shades Left
-      supported_features: 15
-      state: open
-    cover.entryway_shades_right_window_covering:
-      current_position: 2
-      friendly_name: Entryway Shades Right
-      supported_features: 15
-      state: open
-    cover.guest_room_shades_left_window_covering:
-      current_position: 2
-      friendly_name: Guest Room Shades Left
-      supported_features: 15
-      state: open
-    cover.guest_room_shades_right_window_covering:
-      current_position: 2
-      friendly_name: Guest Room Shades right
-      supported_features: 15
-      state: open
+    switch.entryway_zebra: "on"
+    switch.studio_mckenzie_zebra: "on"
+    switch.studio_missy_zebra: "on"
+    switch.guest_room_zebra: "on"
+  icon: mdi:blinds-open
+- id: 'zebra'
+  name: Zebra
+  entities:
+    switch.entryway_zebra: "on"
+    switch.studio_mckenzie_zebra: "on"
+    switch.studio_missy_zebra: "on"
+    switch.guest_room_zebra: "on"
+    switch.office_zebra: "on"
+    switch.bathroom_zebra: "on"
+    switch.bedroom_zebra: "on"
   icon: mdi:blinds-open
 - id: '1648325799632'
   name: Open All Shades

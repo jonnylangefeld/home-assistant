@@ -1,0 +1,224 @@
+office_shades_left_last:
+  name: Office Shades Left Last
+  min: 0
+  max: 100
+office_shades_left_zebra:
+  name: Office Shades Left Zebra
+  initial: 3
+  min: 0
+  max: 100
+office_shades_left_zebra_half:
+  name: Office Shades Left Half Zebra
+  initial: 49
+  min: 0
+  max: 100
+office_shades_right_last:
+  name: Office Shades Right Last
+  min: 0
+  max: 100
+office_shades_right_zebra:
+  name: Office Shades Right Zebra
+  initial: 3
+  min: 0
+  max: 100
+office_shades_right_zebra_half:
+  name: Office Shades Right Half Zebra
+  initial: 49
+  min: 0
+  max: 100
+office_shades_west_last:
+  name: Office Shades West Last
+  min: 0
+  max: 100
+office_shades_west_zebra:
+  name: Office Shades West Zebra
+  initial: 3
+  min: 0
+  max: 100
+office_shades_west_zebra_half:
+  name: Office Shades West Half Zebra
+  initial: 49
+  min: 0
+  max: 100
+bathroom_shades_last:
+  name: Bathroom Shades Last
+  min: 0
+  max: 100
+bathroom_shades_zebra:
+  name: Bathroom Shades Zebra
+  initial: 2
+  min: 0
+  max: 100
+bathroom_shades_zebra_half:
+  name: Bathroom Shades Half Zebra
+  initial: 49
+  min: 0
+  max: 100
+entryway_shades_left_last:
+  name: Entryway Shades Left Last
+  min: 0
+  max: 100
+entryway_shades_left_zebra:
+  name: Entryway Shades Left Zebra
+  initial: 2
+  min: 0
+  max: 100
+entryway_shades_left_zebra_half:
+  name: Entryway Shades Left Half Zebra
+  initial: 54
+  min: 0
+  max: 100
+entryway_shades_right_last:
+  name: Entryway Shades Right Last
+  min: 0
+  max: 100
+entryway_shades_right_zebra:
+  name: Entryway Shades Right Zebra
+  initial: 2
+  min: 0
+  max: 100
+entryway_shades_right_zebra_half:
+  name: Entryway Shades Right Half Zebra
+  initial: 53
+  min: 0
+  max: 100
+studio_mckenzie_shades_west_last:
+  name: Studio Mckenzie West Last
+  min: 0
+  max: 100
+studio_mckenzie_shades_west_zebra:
+  name: Studio Mckenzie West Zebra
+  initial: 3
+  min: 0
+  max: 100
+studio_mckenzie_shades_west_zebra_half:
+  name: Studio Mckenzie West Half Zebra
+  initial: 56
+  min: 0
+  max: 100
+studio_mckenzie_shades_east_last:
+  name: Studio Mckenzie East Last
+  min: 0
+  max: 100
+studio_mckenzie_shades_east_zebra:
+  name: Studio Mckenzie East Zebra
+  initial: 14
+  min: 0
+  max: 100
+studio_mckenzie_shades_east_zebra_half:
+  name: Studio Mckenzie East Half Zebra
+  initial: 54
+  min: 0
+  max: 100
+studio_missy_shades_west_last:
+  name: Studio Missy West Last
+  min: 0
+  max: 100
+studio_missy_shades_west_zebra:
+  name: Studio Missy West Zebra
+  initial: 17
+  min: 0
+  max: 100
+studio_missy_shades_west_zebra_half:
+  name: Studio Missy West Half Zebra
+  initial: 49
+  min: 0
+  max: 100
+studio_missy_shades_north_last:
+  name: Studio Missy North Last
+  min: 0
+  max: 100
+studio_missy_shades_north_zebra:
+  name: Studio Missy North Zebra
+  initial: 2
+  min: 0
+  max: 100
+studio_missy_shades_north_zebra_half:
+  name: Studio Missy North Half Zebra
+  initial: 50
+  min: 0
+  max: 100
+studio_missy_shades_east_last:
+  name: Studio Missy East Last
+  min: 0
+  max: 100
+studio_missy_shades_east_zebra:
+  name: Studio Missy East Zebra
+  initial: 14
+  min: 0
+  max: 100
+studio_missy_shades_east_zebra_half:
+  name: Studio Missy East Half Zebra
+  initial: 54
+  min: 0
+  max: 100
+guest_room_shades_left_last:
+  name: Guest Room Shades Left Last
+  min: 0
+  max: 100
+guest_room_shades_left_zebra:
+  name: Guest Room Shades Left Zebra
+  initial: 2
+  min: 0
+  max: 100
+guest_room_shades_left_zebra_half:
+  name: Guest Room Shades Left Half Zebra
+  initial: 54
+  min: 0
+  max: 100
+guest_room_shades_right_last:
+  name: Guest Room Shades Right Last
+  min: 0
+  max: 100
+guest_room_shades_right_zebra:
+  name: Guest Room Shades Right Zebra
+  initial: 2
+  min: 0
+  max: 100
+guest_room_shades_right_zebra_half:
+  name: Guest Room Shades Right Half Zebra
+  initial: 54
+  min: 0
+  max: 100
+bedroom_shades_east_last:
+  name: Bedroom Shades East Last
+  min: 0
+  max: 100
+bedroom_shades_east_zebra:
+  name: Bedroom Shades East Zebra
+  initial: 2
+  min: 0
+  max: 100
+bedroom_shades_east_zebra_half:
+  name: Bedroom Shades East Half Zebra
+  initial: 54
+  min: 0
+  max: 100
+bedroom_shades_left_last:
+  name: Bedroom Shades Left Last
+  min: 0
+  max: 100
+bedroom_shades_left_zebra:
+  name: Bedroom Shades Left Zebra
+  initial: 2
+  min: 0
+  max: 100
+bedroom_shades_left_zebra_half:
+  name: Bedroom Shades Left Half Zebra
+  initial: 56
+  min: 0
+  max: 100
+bedroom_shades_right_last:
+  name: Bedroom Shades Right Last
+  min: 0
+  max: 100
+bedroom_shades_right_zebra:
+  name: Bedroom Shades Right Zebra
+  initial: 2
+  min: 0
+  max: 100
+bedroom_shades_right_zebra_half:
+  name: Bedroom Shades Right Half Zebra
+  initial: 55
+  min: 0
+  max: 100
