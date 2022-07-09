@@ -555,7 +555,7 @@
   action:
   - service: cover.set_cover_position
     data:
-      position: 40
+      position: 56
     target:
       entity_id: cover.office_shades_west_window_covering
   mode: single
@@ -570,7 +570,7 @@
   action:
   - service: cover.set_cover_position
     data:
-      position: 56
+      position: 41
     target:
       entity_id: cover.office_shades_west_window_covering
   mode: single
@@ -974,7 +974,7 @@
   action:
   - service: notify.mobile_app_jonnys_iphone
     data:
-      message: Someone is leaving home. Who you ask? {{ trigger.to_state.name }}!
+      message: '{{ trigger.to_state.name }} is leaving home. Closing Garage.'
   - service: cover.close_cover
     data: {}
     target:
@@ -998,7 +998,20 @@
   action:
   - service: notify.mobile_app_jonnys_iphone
     data:
-      message: Everyone is leaving home
+      message: Everyone is leaving home; Turing off everything
+  - service: homeassistant.turn_off
+    data: {}
+    target:
+      area_id:
+      - bathroom
+      - bedroom
+      - dining_room
+      - entryway
+      - garage
+      - kitchen
+      - living_room
+      - office
+      - studio_mckenzie
   mode: restart
 - id: '1656805530784'
   alias: '[Zones] Jonny Coming Home Wide'
@@ -1125,4 +1138,30 @@
     data: {}
     target:
       entity_id: switch.entryway_zebra_half
+  mode: single
+- id: '1657164814756'
+  alias: '[Webhook] Start Wall-E'
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: start-wall-e-Bng7d3sAKenEtBvsv8wK4GU9as8g8bJid9UHF6
+  condition: []
+  action:
+  - service: vacuum.start
+    data: {}
+    target:
+      entity_id: vacuum.the_langefelds_cleaning_robot
+  mode: single
+- id: '1657165099355'
+  alias: '[Webhook] Stop Wall-E'
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: stop-wall-e-gwzA8OCKeSVtjRnf6eTcoEBhd8YDH8dh6de7fjgv8d7
+  condition: []
+  action:
+  - service: vacuum.return_to_base
+    data: {}
+    target:
+      entity_id: vacuum.the_langefelds_cleaning_robot
   mode: single

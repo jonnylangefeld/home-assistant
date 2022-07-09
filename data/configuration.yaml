@@ -14,10 +14,6 @@ logger:
   default: info
   # logs:
   #   zigpy: debug
-  #   zigpy_deconz.zigbee.application: debug
-  #   zigpy_deconz.api: debug
-  #   zigpy_xbee.zigbee.application: debug
-  #   zigpy_xbee.api: debug
   #   zigpy_zigate: debug
   #   zigpy_znp: debug
   #   zhaquirks: debug
