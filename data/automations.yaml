@@ -942,7 +942,7 @@
   action:
   - service: notify.mobile_app_jonnys_iphone
     data:
-      message: Someone is coming home at night
+      message: '{{ trigger.to_state.name }} is coming home at night. Turning on porch and garage.'
   - service: light.turn_on
     data: {}
     target:
@@ -974,7 +974,7 @@
   action:
   - service: notify.mobile_app_jonnys_iphone
     data:
-      message: '{{ trigger.to_state.name }} is leaving home. Closing Garage.'
+      message: '{{ trigger.to_state.name }} is leaving home. Closing garage.'
   - service: cover.close_cover
     data: {}
     target:
