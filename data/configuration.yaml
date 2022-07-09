@@ -37,10 +37,6 @@ zha_toolkit:
 tts:
   - platform: google_translate
 
-spotify:
-  client_id: 525fd62c46d24f529195b8102ffe5b81
-  client_secret: !secret spotify_client_secret
-
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
@@ -51,6 +47,7 @@ sensor: !include sensors.yaml
 proximity: !include proximities.yaml
 input_number: !include input_numbers.yaml
 switch: !include switches.yaml
+camera: !include cameras.yaml
 shell_command: !include shell_commands.yaml
 
 # supposedly the new template platform, but doesn't work for me yet

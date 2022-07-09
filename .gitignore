@@ -11,3 +11,5 @@ data/deps
 data/image
 data/backup-secrets.json
 *db*
+data/maps/map_image*
+www

@@ -1,0 +1,11 @@
+- platform: xiaomi_cloud_map_extractor
+  host: 192.168.4.27
+  scan_interval: 10
+  token: !secret xiaomi_vacuum_token
+  username: !secret xiaomi_cloud_username
+  password: !secret xiaomi_cloud_password
+  store_map_path: /config/maps
+  store_map_image: true
+  draw: ["all"]
+  attributes:
+    - calibration_points
