@@ -13,6 +13,7 @@ cloud:
 logger:
   default: info
   # logs:
+  #   custom_components.xiaomi_cloud_map_extractor: debug
   #   zigpy: debug
   #   zigpy_zigate: debug
   #   zigpy_znp: debug
