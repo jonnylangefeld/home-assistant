@@ -481,22 +481,30 @@
       - bathroom
   mode: single
 - id: '1655012655407'
-  alias: '[Thermostat Upstairs] Reset Thermostat During Hot Temperatures'
+  alias: '[Thermostats] Reset Thermostat When too Cold too Long'
   description: ''
   trigger:
   - platform: event
     event_type: state_changed
     event_data:
       entity_id: climate.lyric_345067
+  - platform: event
+    event_type: state_changed
+    event_data:
+      entity_id: climate.lyric_344142
   condition:
   - condition: template
-    value_template: '{{ state_attr(''weather.lake_house'',''temperature'') > 62 }}'
+    value_template: '
+    {## Test if a human changed the state: ##}
+    {{
+      (trigger.event.data.old_state.attributes.temperature - trigger.event.data.new_state.attributes.temperature) | abs > 0 or
+      trigger.event.data.old_state.state != trigger.event.data.new_state.state
+    }}'
   - condition: template
-    value_template: '{{ (trigger.event.data.old_state.attributes.temperature - trigger.event.data.new_state.attributes.temperature)
-      | abs > 0 }}'
-  - condition: template
-    value_template: '{{ trigger.event.data.new_state.attributes.temperature != 76
-      }}'
+    value_template: '{{
+      trigger.event.data.new_state.attributes.temperature < 76 and
+      trigger.event.data.new_state.state == "cool"
+    }}'
   action:
   - delay:
       hours: 1
@@ -505,39 +513,7 @@
       milliseconds: 0
   - service: climate.set_temperature
     target:
-      entity_id: climate.lyric_345067
-    data:
-      temperature: 76
-      hvac_mode: cool
-  trace:
-    stored_traces: 30
-  mode: restart
-- id: '1655012655408'
-  alias: '[Thermostat Downstairs] Reset Thermostat During Hot Temperatures'
-  description: ''
-  trigger:
-  - platform: event
-    event_type: state_changed
-    event_data:
-      entity_id: climate.lyric_344142
-  condition:
-  - condition: template
-    value_template: '{{ state_attr(''weather.lake_house'',''temperature'') > 62 }}'
-  - condition: template
-    value_template: '{{ (trigger.event.data.old_state.attributes.temperature - trigger.event.data.new_state.attributes.temperature)
-      | abs > 0 }}'
-  - condition: template
-    value_template: '{{ trigger.event.data.new_state.attributes.temperature != 76
-      }}'
-  action:
-  - delay:
-      hours: 1
-      minutes: 0
-      seconds: 0
-      milliseconds: 0
-  - service: climate.set_temperature
-    target:
-      entity_id: climate.lyric_344142
+      entity_id: '{{ trigger.event.data.entity_id }}'
     data:
       temperature: 76
       hvac_mode: cool
@@ -1215,7 +1191,17 @@
     data:
       temperature: 76
       hvac_mode: &climate_reset_climate_mode >-
-        {% if trigger.platform == "event" %}{% if trigger.event.data.new_state.state == "heat_cool" %}heat_cool{% elif trigger.event.data.new_state.state == "cool" or trigger.event.data.new_state.attributes.current_temperature >= 76 %}cool{% else %}heat_cool{% endif %}{% else %}cool{% endif %}
+        {% if trigger.platform == "event" %}
+          {% if trigger.event.data.new_state.state == "heat_cool" %}
+            heat_cool
+          {% elif trigger.event.data.new_state.state == "cool" or trigger.event.data.new_state.attributes.current_temperature >= 76 %}
+            cool
+          {% else %}
+            heat_cool
+          {% endif %}
+        {% else %}
+          cool
+        {% endif %}
   mode: restart
   trace:
     stored_traces: 30
