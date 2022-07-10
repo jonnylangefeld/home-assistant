@@ -1169,60 +1169,53 @@
       entity_id: vacuum.the_langefelds_cleaning_robot
   mode: single
 - id: '1657484904028'
-  alias: '[Thermostat Downstairs] Reset Thermostat if > 76'
+  alias: '[Thermostats] Reset Thermostat if > 76'
   description: ''
   trigger:
   - platform: event
     event_type: state_changed
     event_data:
       entity_id: climate.lyric_344142
-  condition:
-  - condition: template
-    value_template: &climate_reset_template '{{ 
-      trigger.event.data.new_state.state == "off" or
-      trigger.event.data.new_state.attributes.temperature > 76 or
-      (
-        trigger.event.data.new_state.state == "heat" and
-        (
-          trigger.event.data.new_state.attributes.temperature >= 76 or
-          trigger.event.data.new_state.attributes.current_temperature >= 76
-        )
-      ) or
-      (
-        (trigger.event.data.new_state.attributes.current_temperature - trigger.event.data.old_state.attributes.current_temperature) > 0 and 
-        trigger.event.data.new_state.attributes.current_temperature >= 76
-      )
-    }}'
-  action:
-  - service: climate.set_temperature
-    target:
-      entity_id: climate.lyric_344142
-    data:
-      temperature: 76
-      hvac_mode: &climate_reset_climate_mode >-
-        {% if trigger.event.data.new_state.state == "heat_cool" %}heat_cool{% elif trigger.event.data.new_state.state in ["cool", "off"] or trigger.event.data.new_state.attributes.current_temperature >= 76 %}cool{% else %}heat_cool{% endif %}
-  mode: restart
-  trace:
-    stored_traces: 30
-- id: '1657485350393'
-  alias: '[Thermostat Upstairs] Reset Thermostat if > 76'
-  description: ''
-  trigger:
   - platform: event
     event_type: state_changed
     event_data:
       entity_id: climate.lyric_345067
+  - platform: state
+    entity_id:
+    - climate.lyric_345067
+    - climate.lyric_344142
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
   condition:
   - condition: template
-    value_template: *climate_reset_template
+    value_template: &climate_reset_template '{% if trigger.platform == "event" %}{{
+      trigger.event.data.new_state.state != "off" and
+      (
+        trigger.event.data.new_state.attributes.temperature > 76 or
+        (
+          trigger.event.data.new_state.state == "heat" and
+          (
+            trigger.event.data.new_state.attributes.temperature >= 76 or
+            trigger.event.data.new_state.attributes.current_temperature >= 76
+          )
+        ) or
+        (
+          (trigger.event.data.new_state.attributes.current_temperature - trigger.event.data.old_state.attributes.current_temperature) > 0 and 
+          trigger.event.data.new_state.attributes.current_temperature >= 76
+        )
+      )
+    }}{% else %}{{ True }}{% endif %}'
   action:
   - service: climate.set_temperature
     target:
-      entity_id:
-      - climate.lyric_345067
+      entity_id: '{% if trigger.platform == "event" %}{{ trigger.event.data.entity_id }}{% else %}{{ trigger.entity_id }}{% endif %}'
     data:
       temperature: 76
-      hvac_mode: *climate_reset_climate_mode
+      hvac_mode: &climate_reset_climate_mode >-
+        {% if trigger.platform == "event" %}{% if trigger.event.data.new_state.state == "heat_cool" %}heat_cool{% elif trigger.event.data.new_state.state == "cool" or trigger.event.data.new_state.attributes.current_temperature >= 76 %}cool{% else %}heat_cool{% endif %}{% else %}cool{% endif %}
   mode: restart
   trace:
     stored_traces: 30
