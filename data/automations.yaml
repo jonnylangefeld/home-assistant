@@ -951,7 +951,7 @@
   action:
   - service: notify.mobile_app_jonnys_iphone
     data:
-      message: '{{ trigger.to_state.name }} is leaving home. Closing garage.'
+      message: '{{ trigger.to_state.name }} is leaving home.{% if states("cover.garage_door") not in ["closed", "closing"] %} Forgot to close the garage. Closing it now.{% endif %}'
   - service: cover.close_cover
     data: {}
     target:
