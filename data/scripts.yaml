@@ -42,3 +42,29 @@ reset_covers:
       - service: script.reset_cover
         data:
           entity: "{{ repeat.item }}"
+
+clean_rooms:
+  alias: Clean a List of Rooms
+  mode: single
+  sequence:
+  - variables:
+      zones:
+        bathroom: !include vacuum-zones/bathroom.yaml
+        bedroom: !include vacuum-zones/bedroom.yaml
+        closet: !include vacuum-zones/closet.yaml
+        office: !include vacuum-zones/office.yaml
+        baby: !include vacuum-zones/baby.yaml
+        gym: !include vacuum-zones/gym.yaml
+        kids_bathroom: !include vacuum-zones/kids-bathroom.yaml
+        guest: !include vacuum-zones/guest.yaml
+        hall: !include vacuum-zones/hall.yaml
+  - repeat:
+      for_each: "{{ rooms }}"
+      sequence:
+      - service: xiaomi_miio.vacuum_clean_zone
+        data:
+          repeats: 1
+          zone: '{{ zones[repeat.item] }}'
+        target:
+          entity_id: vacuum.the_langefelds_cleaning_robot
+      - wait_template: "{{ is_state('vacuum.the_langefelds_cleaning_robot', 'returning') }}"

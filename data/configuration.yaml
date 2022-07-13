@@ -38,6 +38,10 @@ zha_toolkit:
 tts:
   - platform: google_translate
 
+lovelace:
+  mode: storage
+  dashboards: !include dashboards.yaml
+
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml

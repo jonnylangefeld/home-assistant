@@ -1,0 +1,6 @@
+lovelace-yaml:
+  mode: yaml
+  title: Wall-E
+  icon: mdi:robot-vacuum
+  show_in_sidebar: true
+  filename: dashboards/wall-e.yaml

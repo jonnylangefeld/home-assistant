@@ -1,0 +1,183 @@
+views:
+  - theme: Backend-selected
+    title: Wall-E
+    icon: 'mdi:robot-vacuum'
+    badges: []
+    cards:
+      - type: custom:xiaomi-vacuum-map-card
+        map_source:
+          camera: camera.xiaomi_cloud_map_extractor
+        calibration_source:
+          camera: true
+        entity: vacuum.the_langefelds_cleaning_robot
+        vacuum_platform: default
+        title: Current
+      - type: custom:xiaomi-vacuum-map-card
+        title: Downstairs
+        entity: vacuum.the_langefelds_cleaning_robot
+        vacuum_platform: default
+        map_source:
+          image: /hacsfiles/lovelace-xiaomi-vacuum-map-card/downstairs.png
+        calibration_source:
+          calibration_points:
+            - vacuum:
+                x: 25500
+                'y': 25500
+              map:
+                x: 213
+                'y': 73
+            - vacuum:
+                x: 26500
+                'y': 25500
+              map:
+                x: 233
+                'y': 73
+            - vacuum:
+                x: 25500
+                'y': 26500
+              map:
+                x: 213
+                'y': 53
+        tiles: []
+        icons: []
+        map_modes:
+          - template: vacuum_clean_zone_predefined
+            predefined_selections:
+              - zones:
+                  - - 17596
+                    - 16435
+                    - 21815
+                    - 23027
+                  - - 21816
+                    - 18089
+                    - 26880
+                    - 21235
+                icon:
+                  name: mdi:door
+                  x: 17596
+                  'y': 23027
+              - zones:
+                  - - 21680
+                    - 21155
+                    - 26824
+                    - 26146
+                icon:
+                  name: mdi:sofa
+                  x: 21680
+                  'y': 26146
+              - zones:
+                  - - 22024
+                    - 12347
+                    - 23565
+                    - 18023
+                  - - 19668
+                    - 12770
+                    - 22023
+                    - 15808
+                  - - 25024
+                    - 12347
+                    - 26665
+                    - 18023
+                  - - 23565
+                    - 12347
+                    - 25024
+                    - 14523
+                icon:
+                  name: mdi:countertop
+                  x: 22024
+                  'y': 18023
+              - zones:
+                  - - 26420
+                    - 12171
+                    - 29689
+                    - 17461
+                icon:
+                  name: mdi:silverware
+                  x: 26420
+                  'y': 17461
+          - template: vacuum_clean_zone
+          - template: vacuum_goto
+          - template: vacuum_follow_path
+        view_layout:
+          position: main
+      - type: custom:xiaomi-vacuum-map-card
+        title: Upstairs
+        entity: vacuum.the_langefelds_cleaning_robot
+        vacuum_platform: default
+        map_source:
+          image: /hacsfiles/lovelace-xiaomi-vacuum-map-card/upstairs.png
+        calibration_source:
+          calibration_points:
+            - vacuum:
+                x: 25500
+                'y': 25500
+              map:
+                x: 274
+                'y': 299
+            - vacuum:
+                x: 26500
+                'y': 25500
+              map:
+                x: 294
+                'y': 299
+            - vacuum:
+                x: 25500
+                'y': 26500
+              map:
+                x: 274
+                'y': 279
+        tiles: []
+        icons: []
+        map_modes:
+          - template: vacuum_clean_zone_predefined
+            predefined_selections:
+              - zones: !include ../vacuum-zones/bathroom.yaml
+                icon:
+                  name: mdi:shower
+                  x: 22675
+                  'y': 33605
+              - zones: !include ../vacuum-zones/bedroom.yaml
+                icon:
+                  name: mdi:bed-outline
+                  x: 18572
+                  'y': 32800
+              - zones: !include ../vacuum-zones/closet.yaml
+                icon:
+                  name: mdi:hanger
+                  x: 22675
+                  'y': 30628
+              - zones: !include ../vacuum-zones/office.yaml
+                icon:
+                  name: mdi:chair-rolling
+                  x: 27261
+                  'y': 32806
+              - zones: !include ../vacuum-zones/baby.yaml
+                icon:
+                  name: mdi:baby-bottle-outline
+                  x: 27977
+                  'y': 28626
+              - zones: !include ../vacuum-zones/gym.yaml
+                icon:
+                  name: mdi:dumbbell
+                  x: 25432
+                  'y': 23661
+              - zones: !include ../vacuum-zones/kids-bathroom.yaml
+                icon:
+                  name: mdi:shower
+                  x: 28402
+                  'y': 24027
+              - zones: !include ../vacuum-zones/guest.yaml
+                icon:
+                  name: mdi:bed-outline
+                  x: 18320
+                  'y': 24601
+              - zones: !include ../vacuum-zones/hall.yaml
+                icon:
+                  name: mdi:image-frame
+                  x: 22650
+                  'y': 28573
+          - template: vacuum_clean_zone
+          - template: vacuum_goto
+          - template: vacuum_follow_path
+        view_layout:
+          position: main

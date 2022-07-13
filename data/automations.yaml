@@ -494,17 +494,12 @@
       entity_id: climate.lyric_344142
   condition:
   - condition: template
-    value_template: '
-    {## Test if a human changed the state: ##}
-    {{
-      (trigger.event.data.old_state.attributes.temperature - trigger.event.data.new_state.attributes.temperature) | abs > 0 or
-      trigger.event.data.old_state.state != trigger.event.data.new_state.state
-    }}'
+    value_template: ' {## Test if a human changed the state: ##} {{ (trigger.event.data.old_state.attributes.temperature
+      - trigger.event.data.new_state.attributes.temperature) | abs > 0 or trigger.event.data.old_state.state
+      != trigger.event.data.new_state.state }}'
   - condition: template
-    value_template: '{{
-      trigger.event.data.new_state.attributes.temperature < 76 and
-      trigger.event.data.new_state.state == "cool"
-    }}'
+    value_template: '{{ trigger.event.data.new_state.attributes.temperature < 76 and
+      trigger.event.data.new_state.state == "cool" }}'
   action:
   - delay:
       hours: 1
@@ -951,7 +946,9 @@
   action:
   - service: notify.mobile_app_jonnys_iphone
     data:
-      message: '{{ trigger.to_state.name }} is leaving home.{% if states("cover.garage_door") not in ["closed", "closing"] %} Forgot to close the garage. Closing it now.{% endif %}'
+      message: '{{ trigger.to_state.name }} is leaving home.{% if states("cover.garage_door")
+        not in ["closed", "closing"] %} Forgot to close the garage. Closing it now.{%
+        endif %}'
   - service: cover.close_cover
     data: {}
     target:
@@ -975,11 +972,11 @@
   action:
   - service: notify.mobile_app_jonnys_iphone
     data:
-      message: Everyone is leaving home; Turing off everything
+      message: Everyone is leaving home; Turning off everything
   - service: light.turn_off
     data: {}
     target:
-      area_id: &id001
+      area_id:
       - office
       - living_room
       - kitchen
@@ -990,7 +987,13 @@
   - service: switch.turn_off
     data: {}
     target:
-      area_id: *id001
+      area_id:
+      - living_room
+      - kitchen
+      - entryway
+      - dining_room
+      - dining_room
+      - bathroom
   mode: restart
 - id: '1656805530784'
   alias: '[Zones] Jonny Coming Home Wide'
@@ -1167,41 +1170,37 @@
       seconds: 5
   condition:
   - condition: template
-    value_template: &climate_reset_template '{% if trigger.platform == "event" %}{{
-      trigger.event.data.new_state.state != "off" and
-      (
-        trigger.event.data.new_state.attributes.temperature > 76 or
-        (
-          trigger.event.data.new_state.state == "heat" and
-          (
-            trigger.event.data.new_state.attributes.temperature >= 76 or
-            trigger.event.data.new_state.attributes.current_temperature >= 76
-          )
-        ) or
-        (
-          (trigger.event.data.new_state.attributes.current_temperature - trigger.event.data.old_state.attributes.current_temperature) > 0 and 
-          trigger.event.data.new_state.attributes.current_temperature >= 76
-        )
-      )
-    }}{% else %}{{ True }}{% endif %}'
+    value_template: '{% if trigger.platform == "event" %}{{ trigger.event.data.new_state.state
+      != "off" and ( trigger.event.data.new_state.attributes.temperature > 76 or (
+      trigger.event.data.new_state.state == "heat" and ( trigger.event.data.new_state.attributes.temperature
+      >= 76 or trigger.event.data.new_state.attributes.current_temperature >= 76 )
+      ) or ( (trigger.event.data.new_state.attributes.current_temperature - trigger.event.data.old_state.attributes.current_temperature)
+      > 0 and trigger.event.data.new_state.attributes.current_temperature >= 76 )
+      ) }}{% else %}{{ True }}{% endif %}'
   action:
   - service: climate.set_temperature
     target:
-      entity_id: '{% if trigger.platform == "event" %}{{ trigger.event.data.entity_id }}{% else %}{{ trigger.entity_id }}{% endif %}'
+      entity_id: '{% if trigger.platform == "event" %}{{ trigger.event.data.entity_id
+        }}{% else %}{{ trigger.entity_id }}{% endif %}'
     data:
       temperature: 76
-      hvac_mode: &climate_reset_climate_mode >-
-        {% if trigger.platform == "event" %}
-          {% if trigger.event.data.new_state.state == "heat_cool" %}
-            heat_cool
-          {% elif trigger.event.data.new_state.state == "cool" or trigger.event.data.new_state.attributes.current_temperature >= 76 %}
-            cool
-          {% else %}
-            heat_cool
-          {% endif %}
-        {% else %}
-          cool
-        {% endif %}
+      hvac_mode: "{% if trigger.platform == \"event\" %}\n  {% if trigger.event.data.new_state.state\
+        \ == \"heat_cool\" %}\n    heat_cool\n  {% elif trigger.event.data.new_state.state\
+        \ == \"cool\" or trigger.event.data.new_state.attributes.current_temperature\
+        \ >= 76 %}\n    cool\n  {% else %}\n    heat_cool\n  {% endif %}\n{% else\
+        \ %}\n  cool\n{% endif %}"
   mode: restart
   trace:
     stored_traces: 30
+- id: '1657696223551'
+  alias: Clean Webhook
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: clean-aYH6v0rSFKCI03tTw3kwsYXM9sdJjd8ejd8jJULt55dyYjb67yjho
+  condition: []
+  action:
+  - service: script.clean_rooms
+    data:
+      rooms: '{{ trigger.json.rooms }}'
+  mode: single
