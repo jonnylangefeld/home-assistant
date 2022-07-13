@@ -1060,7 +1060,7 @@
       entity_id: cover.garage_door
   mode: single
 - id: '1656808644001'
-  alias: '[Living Room] Start Cleaner'
+  alias: '[Upstairs] Start Cleaner'
   description: ''
   trigger:
   - platform: time
@@ -1070,11 +1070,20 @@
     weekday:
     - tue
     - fri
+    before: 00:00:00
   action:
-  - service: vacuum.start
-    data: {}
-    target:
-      entity_id: vacuum.the_langefelds_cleaning_robot
+  - service: script.clean_rooms
+    data:
+      rooms:
+      - bathroom
+      - closet
+      - bedroom
+      - hall
+      - office
+      - baby
+      - kids_bathroom
+      - gym
+      - guest
   mode: single
 - id: '1656828277101'
   alias: '[Bedroom] Zebra Shades When Lights on After Sunset'
@@ -1129,10 +1138,18 @@
     webhook_id: start-wall-e-Bng7d3sAKenEtBvsv8wK4GU9as8g8bJid9UHF6
   condition: []
   action:
-  - service: vacuum.start
-    data: {}
-    target:
-      entity_id: vacuum.the_langefelds_cleaning_robot
+  - service: script.clean_rooms
+    data:
+      rooms:
+      - bathroom
+      - closet
+      - bedroom
+      - hall
+      - office
+      - baby
+      - kids_bathroom
+      - gym
+      - guest
   mode: single
 - id: '1657165099355'
   alias: '[Webhook] Stop Wall-E'
@@ -1193,7 +1210,7 @@
   trace:
     stored_traces: 30
 - id: '1657696223551'
-  alias: Clean Webhook
+  alias: '[Webhook] Clean'
   description: ''
   trigger:
   - platform: webhook
