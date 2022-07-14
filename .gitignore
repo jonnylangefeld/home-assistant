@@ -13,3 +13,4 @@ data/backup-secrets.json
 *db*
 data/maps/map_image*
 www
+.vscode

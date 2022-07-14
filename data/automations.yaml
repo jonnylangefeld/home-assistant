@@ -108,8 +108,8 @@
       - dining_room
       - kitchen
   mode: single
-- alias: '[Downstairs] Philips Switch off'
-  id: '1643181244134'
+- id: '1643181244134'
+  alias: '[Downstairs] Philips Switch off'
   description: ''
   trigger:
   - platform: event
@@ -133,6 +133,11 @@
       - entryway
       - dining_room
       - garage
+    data: {}
+  - service: homeassistant.turn_off
+    data: {}
+    target:
+      entity_id: remote.roku_tv
   mode: single
 - id: '1644122061382'
   alias: '[Stairs Closet] Light On'
@@ -1220,4 +1225,4 @@
   - service: script.clean_rooms
     data:
       rooms: '{{ trigger.json.rooms }}'
-  mode: single
+  mode: restart

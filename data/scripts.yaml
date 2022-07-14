@@ -45,7 +45,7 @@ reset_covers:
 
 clean_rooms:
   alias: Clean a List of Rooms
-  mode: single
+  mode: restart
   sequence:
   - variables:
       zones:
