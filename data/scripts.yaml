@@ -61,10 +61,15 @@ clean_rooms:
   - repeat:
       for_each: "{{ rooms }}"
       sequence:
+      - service: vacuum.pause
+        target:
+          entity_id: vacuum.the_langefelds_cleaning_robot
+      - wait_template: "{{ states('vacuum.the_langefelds_cleaning_robot') in ['idle', 'docked', 'paused'] }}"
       - service: xiaomi_miio.vacuum_clean_zone
         data:
           repeats: 1
           zone: '{{ zones[repeat.item] }}'
         target:
           entity_id: vacuum.the_langefelds_cleaning_robot
-      - wait_template: "{{ is_state('vacuum.the_langefelds_cleaning_robot', 'returning') }}"
+      - wait_template: "{{ is_state('vacuum.the_langefelds_cleaning_robot', 'cleaning') }}"
+      - wait_template: "{{ states('vacuum.the_langefelds_cleaning_robot') in ['idle', 'docked', 'returning'] }}"
