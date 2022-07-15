@@ -1102,6 +1102,9 @@
   - condition: numeric_state
     entity_id: sensor.sun_elevation
     below: '0'
+  - condition: time
+    before: 00:00:00
+    after: '12:00:00'
   action:
   - service: switch.turn_on
     data: {}
@@ -1226,3 +1229,76 @@
     data:
       rooms: '{{ trigger.json.rooms }}'
   mode: restart
+- id: '1657881854221'
+  alias: '[Bathroom] I''m in the Bathroom'
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: bathroom-im-in-the-bathroom-enao9bo_SJuEo6D0B6CyUc2rKJNujnme0Je734jfdHJdjUd88dk13j49ckKKsK
+  condition: []
+  action:
+  - if:
+    - condition: template
+      value_template: '{{ states(''sun.sun'') == "above_horizon" }}'
+    then:
+    - service: switch.turn_on
+      data: {}
+      target:
+        entity_id: switch.bathroom_zebra
+    else:
+    - service: cover.close_cover
+      data: {}
+      target:
+        area_id: bathroom
+    - service: light.turn_on
+      data: {}
+      target:
+        area_id: bathroom
+  mode: single
+- id: '1657883021537'
+  alias: '[Bedroom] Make it Romantic'
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: bedroom-make-it-romantic-8n2tgwQONXop5vpPr0az7LwWKHB7dfkud6433HDJkfhjHHhf75spLvdmdy19dpjzhy4dh
+  condition: []
+  action:
+  - if:
+    - condition: template
+      value_template: '{{ states(''sun.sun'') == "below_horizon" }}'
+    then:
+    - if:
+      - condition: time
+        before: '12:00:00'
+        after: 00:00:00
+      then:
+      - service: cover.close_cover
+        data: {}
+        target:
+          area_id: bedroom
+      else: []
+    - parallel:
+      - service: light.turn_on
+        data:
+          rgb_color:
+          - 255
+          - 0
+          - 0
+          brightness_pct: 100
+          transition: 5
+        target:
+          entity_id:
+          - light.bed_jonny
+          - light.bed_mckenzie
+      - service: light.turn_off
+        data: {}
+        target:
+          entity_id:
+          - light.holmo_left
+          - light.holmo_right
+    else:
+    - service: switch.turn_on
+      data: {}
+      target:
+        entity_id: switch.bedroom_zebra
+  mode: single
