@@ -1015,7 +1015,7 @@
       message: Jonny is coming home wide
   mode: single
 - id: '1656805530785'
-  alias: '[Zones] Jonny Leaving Home Wide'
+  alias: '[Zones] Jonny Leaving River Islands'
   description: ''
   trigger:
   - platform: zone
@@ -1026,11 +1026,11 @@
   action:
   - service: notify.mobile_app_jonnys_iphone
     data:
-      message: Jonny is leaving home wide
-  - service: cover.close_cover
+      message: Jonny is leaving river islands; turning off work
+  - service: input_boolean.turn_off
     data: {}
     target:
-      entity_id: cover.garage_door
+      entity_id: input_boolean.work
   mode: single
 - id: '1656805530786'
   alias: '[Zones] Jonny Coming Home Near'
