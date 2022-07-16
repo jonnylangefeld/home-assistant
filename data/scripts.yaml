@@ -73,3 +73,100 @@ clean_rooms:
           entity_id: vacuum.the_langefelds_cleaning_robot
       - wait_template: "{{ is_state('vacuum.the_langefelds_cleaning_robot', 'cleaning') }}"
       - wait_template: "{{ states('vacuum.the_langefelds_cleaning_robot') in ['idle', 'docked', 'returning'] }}"
+
+work:
+  alias: Set the Perfect Scene for Work
+  mode: single
+  sequence:
+  - if:
+      - alias: "Jonny is at work"
+        condition: state
+        entity_id: input_boolean.work
+        state: "on"
+    then:
+      - parallel:
+        - alias: "Turn on the office screens"
+          service: switch.turn_on
+          target:
+            entity_id: switch.gosund_04
+        - if:
+            - alias: "Work lake view is on"
+              condition: state
+              entity_id: input_boolean.work_lake_view
+              state: "on"
+          then:
+            - parallel:
+              - alias: "Open shades"
+                service: cover.open_cover
+                target:
+                  entity_id:
+                    - cover.office_shades_left_window_covering
+                    - cover.office_shades_right_window_covering
+              - choose:
+                  - conditions:
+                      - condition: numeric_state
+                        entity_id: sensor.sun_azimuth
+                        above: '285'
+                    sequence:
+                      - service: cover.open_cover
+                        target:
+                          entity_id: cover.office_shades_west_window_covering
+                  - conditions:
+                      - condition: numeric_state
+                        entity_id: sensor.sun_azimuth
+                        above: '265'
+                    sequence:
+                      - service: cover.set_cover_position
+                        data:
+                          position: 41
+                        target:
+                          entity_id: cover.office_shades_west_window_covering
+                  - conditions:
+                      - condition: numeric_state
+                        entity_id: sensor.sun_azimuth
+                        above: '250'
+                    sequence:
+                      - service: cover.set_cover_position
+                        data:
+                          position: 56
+                        target:
+                          entity_id: cover.office_shades_west_window_covering
+                default:
+                  - service: cover.open_cover
+                    target:
+                      entity_id: cover.office_shades_west_window_covering
+          else:
+            - alias: "Set shades to zebra"
+              service: switch.turn_on
+              target:
+                entity_id: switch.office_zebra
+        - if:
+            - alias: "Sun is below horizon"
+              condition: state
+              entity_id: sun.sun
+              state: "below_horizon"
+          then:
+            - alias: "Turn on the LEDs"
+              service: light.turn_on
+              data:
+                rgb_color:
+                  - 242
+                  - 241
+                  - 255
+                brightness_pct: 100
+              target:
+                entity_id: light.leds
+    else:
+      - parallel:
+        - alias: "Turn off the office screens"
+          service: switch.turn_off
+          target:
+            entity_id: switch.gosund_04
+        - alias: "Turn off the LEDs"
+          service: light.turn_off
+          target:
+            entity_id: light.leds
+        - alias: "Set shades to zebra"
+          service: switch.turn_on
+          target:
+            entity_id: switch.office_zebra

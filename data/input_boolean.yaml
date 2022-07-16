@@ -1,0 +1,7 @@
+work:
+  name: Jonny's work status
+  icon: mdi:briefcase-outline
+work_lake_view:
+  name: View the lake when at work
+  icon: mdi:waves
+  initial: true

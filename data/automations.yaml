@@ -417,7 +417,7 @@
     data: {}
   mode: single
 - id: '1648327355840'
-  alias: Set Shades to Zebra at Sunrise
+  alias: '[Shades] Set Shades to Zebra at Sunrise'
   description: ''
   trigger:
   - platform: sun
@@ -428,7 +428,7 @@
   - scene: scene.zebra
   mode: single
 - id: '1648327422530'
-  alias: Close Front Shades at Sunset
+  alias: '[Shades] Close Front Shades at Sunset'
   description: ''
   trigger:
   - platform: sun
@@ -1076,19 +1076,20 @@
     - tue
     - fri
     before: 00:00:00
+    after: 00:00:00
   action:
   - service: script.clean_rooms
     data:
       rooms:
-      - bathroom
       - closet
+      - bathroom
       - bedroom
+      - guest
       - hall
       - office
       - baby
       - kids_bathroom
       - gym
-      - guest
   mode: single
 - id: '1656828277101'
   alias: '[Bedroom] Zebra Shades When Lights on After Sunset'
@@ -1301,4 +1302,75 @@
       data: {}
       target:
         entity_id: switch.bedroom_zebra
+  mode: single
+- id: '1658003838609'
+  alias: '[Office] Work Switch'
+  description: ''
+  trigger:
+  - platform: event
+    event_type: zha_event
+    event_data:
+      device_ieee: 0c:43:14:ff:fe:86:b2:ea
+      command: remote_button_short_press
+  - platform: webhook
+    webhook_id: office-work-switch-vZlIyBZ-ZOf8y9fYD1b-LUEbsdofoUDF9sdfFDJDQc934ieWd82Dj
+  condition:
+  - condition: template
+    value_template: '{% if trigger.platform == "event" %}{{ trigger.event.data.endpoint_id
+      in [1,2] }}{% else %}true{% endif %}'
+  action:
+  - service: "input_boolean.turn_{%- if\n  (trigger.platform == \"event\" and trigger.event.data.endpoint_id\
+      \ == 1) or\n  (trigger.platform == \"webhook\" and trigger.json.work == \"on\"\
+      )\n-%}on{%- else -%}off{%- endif -%}"
+    data: {}
+    target:
+      entity_id: input_boolean.work
+  mode: single
+- id: '1658005130510'
+  alias: '[Office] Work'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - input_boolean.work
+  - platform: state
+    entity_id:
+    - sun.sun
+    from: above_horizion
+    to: below_horizon
+  - platform: state
+    entity_id:
+    - sun.sun
+    from: below_horizon
+    to: above_horizon
+  - platform: numeric_state
+    entity_id: sensor.sun_azimuth
+    above: '250'
+  - platform: numeric_state
+    entity_id: sensor.sun_azimuth
+    above: '265'
+  - platform: numeric_state
+    entity_id: sensor.sun_azimuth
+    above: '285'
+  - platform: state
+    entity_id:
+    - input_boolean.work_lake_view
+  condition: []
+  action:
+  - service: script.work
+    data: {}
+  mode: single
+- id: '1658010893923'
+  alias: '[Office] Lake View'
+  description: ''
+  trigger:
+  - platform: webhook
+    webhook_id: office-lake-view-JcV5sHtqb5VTeHv8UZY6ppkd8asd76cLKasldkb213asdf8asdfcbLYHkHl7632H3dj21ks0
+  condition: []
+  action:
+  - service: input_boolean.turn_{% if trigger.json.work_lake_view == "off" %}off{%
+      else %}on{% endif%}
+    data: {}
+    target:
+      entity_id: input_boolean.work_lake_view
   mode: single

@@ -51,6 +51,7 @@ fan: !include fans.yaml
 sensor: !include sensors.yaml
 proximity: !include proximities.yaml
 input_number: !include input_numbers.yaml
+input_boolean: !include input_boolean.yaml
 switch: !include switches.yaml
 camera: !include cameras.yaml
 shell_command: !include shell_commands.yaml
