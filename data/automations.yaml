@@ -1150,15 +1150,15 @@
   - service: script.clean_rooms
     data:
       rooms:
-      - bathroom
       - closet
+      - bathroom
       - bedroom
+      - guest
       - hall
       - office
       - baby
       - kids_bathroom
       - gym
-      - guest
   mode: single
 - id: '1657165099355'
   alias: '[Webhook] Stop Wall-E'
