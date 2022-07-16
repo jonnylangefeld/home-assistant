@@ -1314,6 +1314,8 @@
       command: remote_button_short_press
   - platform: webhook
     webhook_id: office-work-switch-vZlIyBZ-ZOf8y9fYD1b-LUEbsdofoUDF9sdfFDJDQc934ieWd82Dj
+  - platform: time
+    at: 06:00:00
   condition:
   - condition: template
     value_template: '{% if trigger.platform == "event" %}{{ trigger.event.data.endpoint_id
@@ -1321,7 +1323,9 @@
   action:
   - service: "input_boolean.turn_{%- if\n  (trigger.platform == \"event\" and trigger.event.data.endpoint_id\
       \ == 1) or\n  (trigger.platform == \"webhook\" and trigger.json.work == \"on\"\
-      )\n-%}on{%- else -%}off{%- endif -%}"
+      ) or\n  (trigger.platform == \"time\" and now().strftime(\"%a\") not in [\"\
+      Sat\", \"Sun\"] and states(\"input_boolean.work\") == \"off\")\n-%}on{%- else\
+      \ -%}off{%- endif -%}"
     data: {}
     target:
       entity_id: input_boolean.work
