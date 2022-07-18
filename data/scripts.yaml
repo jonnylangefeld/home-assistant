@@ -74,6 +74,150 @@ clean_rooms:
       - wait_template: "{{ is_state('vacuum.the_langefelds_cleaning_robot', 'cleaning') }}"
       - wait_template: "{{ states('vacuum.the_langefelds_cleaning_robot') in ['idle', 'docked', 'returning'] }}"
 
+make_it_romantic:
+  alias: Make it Romantic
+  sequence:
+  - parallel:
+    - &bedroom_if
+      if:
+      - condition: template
+        value_template: '{{ states(''sun.sun'') == "above_horizon" or states(''light.deck_string_lights'')
+          == "on" }}'
+      then:
+      - service: switch.turn_on
+        data: {}
+        target:
+          entity_id: switch.bedroom_zebra
+      else:
+      - service: cover.close_cover
+        target:
+          area_id: bedroom
+        data: {}
+    - &bedroom_turn_off
+      service: homeassistant.turn_off
+      data: {}
+      target:
+        entity_id:
+        - light.holmo_left
+        - light.holmo_right
+        - switch.gosund_03
+        - light.bathroom_ceiling_lights
+        - light.bathroom_mirror_lights
+        - light.closet_lights
+        - fan.bathroom_fan
+    - service: light.turn_on
+      data:
+        rgb_color:
+        - 255
+        - 0
+        - 0
+        brightness_pct: 100
+        transition: 3
+      target:
+        entity_id:
+        - light.bed_jonny
+        - light.bed_mckenzie
+        - light.bedroom_leds_jonny
+        - light.bedroom_leds_mckenzie
+    - service: spotcast.start
+      data:
+        entity_id: media_player.bedroom_speaker
+        uri: spotify:playlist:4Fhtk6GTtcKLczGuFjfQVq
+        random_song: true
+        force_playback: true
+        start_volume: 50
+make_it_peaceful:
+  alias: Make it Peaceful
+  sequence:
+  - parallel:
+    - *bedroom_if
+    - *bedroom_turn_off
+    - service: light.turn_on
+      data:
+        rgb_color:
+        - 89
+        - 97
+        - 255
+        brightness_pct: 70
+        transition: 3
+      target:
+        entity_id:
+        - light.bed_jonny
+        - light.bed_mckenzie
+    - service: light.turn_on
+      data:
+        rgb_color:
+        - 152
+        - 186
+        - 255
+        brightness_pct: 80
+        transition: 3
+      target:
+        entity_id:
+        - light.bedroom_leds_jonny
+        - light.bedroom_leds_mckenzie
+    - service: spotcast.start
+      data:
+        entity_id: media_player.bedroom_speaker
+        uri: spotify:playlist:15ngsvOmlTkARCg7ipoNvG
+        random_song: true
+        force_playback: true
+        start_volume: 40
+set_bed_on_fire:
+  alias: 'Set the Bed on Fire'
+  sequence:
+  - service: light.turn_on
+    data:
+      effect: fire
+    target:
+      entity_id:
+      - light.bedroom_leds_jonny
+      - light.bedroom_leds_mckenzie
+in_the_bathroom:
+  alias: 'I''m in the Bathroom'
+  sequence:
+  - if:
+    - condition: template
+      value_template: '{{ states(''sun.sun'') == "above_horizon" }}'
+    then:
+    - service: switch.turn_on
+      data: {}
+      target:
+        entity_id: switch.bathroom_zebra
+    else:
+    - service: cover.close_cover
+      data: {}
+      target:
+        area_id: bathroom
+    - service: light.turn_on
+      data: {}
+      target:
+        area_id: bathroom
+clean_upstairs:
+  alias: 'Clean Upstairs'
+  sequence:
+  - service: script.clean_rooms
+    data:
+      rooms:
+      - hall
+      - bedroom
+      - bathroom
+      - closet
+      - guest
+      - office
+      - baby
+      - kids_bathroom
+      - gym
+stop_cleaner:
+  alias: 'Stop the Cleaner'
+  sequence:
+  - service: script.turn_off
+    target:
+      entity_id: script.clean_rooms
+  - service: vacuum.return_to_base
+    target:
+      entity_id: vacuum.the_langefelds_cleaning_robot
+
 work:
   alias: Set the Perfect Scene for Work
   mode: single

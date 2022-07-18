@@ -37,22 +37,10 @@
       subtype: 1
   condition: []
   action:
-  - type: turn_on
-    device_id: 0479caf0564da0aa0d1b22890f842a94
-    entity_id: light.holmo_left
-    domain: light
-  - type: turn_on
-    device_id: d0b4bf16f3e3573a45d90a68fc37ab59
-    entity_id: light.holmo_right
-    domain: light
-  - type: turn_on
-    device_id: 05fc617e442dd530a0325af7445e0deb
-    entity_id: light.bed_jonny
-    domain: light
-  - type: turn_on
-    device_id: 2ef931c4d14fb9280be5ea283bfb0d15
-    entity_id: light.bed_mckenzie
-    domain: light
+  - service: scene.turn_on
+    data: {}
+    target:
+      entity_id: scene.bedroom_bright
   - service: homeassistant.turn_off
     data: {}
     target:
@@ -71,22 +59,16 @@
       subtype: 4
   condition: []
   action:
-  - type: turn_off
-    device_id: 0479caf0564da0aa0d1b22890f842a94
-    entity_id: light.holmo_left
-    domain: light
-  - type: turn_off
-    device_id: d0b4bf16f3e3573a45d90a68fc37ab59
-    entity_id: light.holmo_right
-    domain: light
-  - type: turn_off
-    device_id: 05fc617e442dd530a0325af7445e0deb
-    entity_id: light.bed_jonny
-    domain: light
-  - type: turn_off
-    device_id: 2ef931c4d14fb9280be5ea283bfb0d15
-    entity_id: light.bed_mckenzie
-    domain: light
+  - service: light.turn_off
+    data: {}
+    target:
+      entity_id:
+      - light.bed_mckenzie
+      - light.bed_jonny
+      - light.holmo_left
+      - light.holmo_right
+      - light.bedroom_leds_jonny
+      - light.bedroom_leds_mckenzie
   mode: single
 - alias: '[Downstairs] Philips Switch on'
   id: '1643181085195'
@@ -1082,18 +1064,7 @@
     before: 00:00:00
     after: 00:00:00
   action:
-  - service: script.clean_rooms
-    data:
-      rooms: &id001
-      - hall
-      - bedroom
-      - bathroom
-      - closet
-      - guest
-      - office
-      - baby
-      - kids_bathroom
-      - gym
+  - service: script.clean_upstairs
   mode: single
 - id: '1656828277101'
   alias: '[Bedroom] Zebra Shades When Lights on After Sunset'
@@ -1142,31 +1113,6 @@
     data: {}
     target:
       entity_id: switch.entryway_zebra_half
-  mode: single
-- id: '1657164814756'
-  alias: '[Webhook] Start Wall-E'
-  description: ''
-  trigger:
-  - platform: webhook
-    webhook_id: start-wall-e-Bng7d3sAKenEtBvsv8wK4GU9as8g8bJid9UHF6
-  condition: []
-  action:
-  - service: script.clean_rooms
-    data:
-      rooms: *id001
-  mode: single
-- id: '1657165099355'
-  alias: '[Webhook] Stop Wall-E'
-  description: ''
-  trigger:
-  - platform: webhook
-    webhook_id: stop-wall-e-gwzA8OCKeSVtjRnf6eTcoEBhd8YDH8dh6de7fjgv8d7
-  condition: []
-  action:
-  - service: vacuum.return_to_base
-    data: {}
-    target:
-      entity_id: vacuum.the_langefelds_cleaning_robot
   mode: single
 - id: '1657484904028'
   alias: '[Thermostats] Reset Thermostat if > 76'
@@ -1225,78 +1171,15 @@
     data:
       rooms: '{{ trigger.json.rooms }}'
   mode: restart
-- id: '1657881854221'
-  alias: '[Bathroom] I''m in the Bathroom'
+- id: '1657883021538'
+  alias: '[Webhook] Call script'
   description: ''
   trigger:
   - platform: webhook
-    webhook_id: bathroom-im-in-the-bathroom-enao9bo_SJuEo6D0B6CyUc2rKJNujnme0Je734jfdHJdjUd88dk13j49ckKKsK
+    webhook_id: call-script-8n2tgwQONXop5vpPr0az7LwWKHB7dfkud6433HDJkfhjHHhf75spLvdmdy19dpjzhy4dhpKK9RMCrApXgQTMiUwGYL6AiB2gVjbfNRo7tjfav9GmTi8HT9psqgkZmVJg9nkm
   condition: []
   action:
-  - if:
-    - condition: template
-      value_template: '{{ states(''sun.sun'') == "above_horizon" }}'
-    then:
-    - service: switch.turn_on
-      data: {}
-      target:
-        entity_id: switch.bathroom_zebra
-    else:
-    - service: cover.close_cover
-      data: {}
-      target:
-        area_id: bathroom
-    - service: light.turn_on
-      data: {}
-      target:
-        area_id: bathroom
-  mode: single
-- id: '1657883021537'
-  alias: '[Bedroom] Make it Romantic'
-  description: ''
-  trigger:
-  - platform: webhook
-    webhook_id: bedroom-make-it-romantic-8n2tgwQONXop5vpPr0az7LwWKHB7dfkud6433HDJkfhjHHhf75spLvdmdy19dpjzhy4dh
-  condition: []
-  action:
-  - if:
-    - condition: template
-      value_template: '{{ states(''sun.sun'') == "below_horizon" }}'
-    then:
-    - if:
-      - condition: time
-        before: '12:00:00'
-        after: 00:00:00
-      then:
-      - service: cover.close_cover
-        data: {}
-        target:
-          area_id: bedroom
-      else: []
-    - parallel:
-      - service: light.turn_on
-        data:
-          rgb_color:
-          - 255
-          - 0
-          - 0
-          brightness_pct: 100
-          transition: 5
-        target:
-          entity_id:
-          - light.bed_jonny
-          - light.bed_mckenzie
-      - service: light.turn_off
-        data: {}
-        target:
-          entity_id:
-          - light.holmo_left
-          - light.holmo_right
-    else:
-    - service: switch.turn_on
-      data: {}
-      target:
-        entity_id: switch.bedroom_zebra
+  - service: script.{{ trigger.json.script }}
   mode: single
 - id: '1658003838609'
   alias: '[Office] Work Switch'
@@ -1316,11 +1199,12 @@
     value_template: '{% if trigger.platform == "event" %}{{ trigger.event.data.endpoint_id
       in [1,2] }}{% else %}true{% endif %}'
   action:
-  - service: "input_boolean.turn_{%- if\n  (trigger.platform == \"event\" and trigger.event.data.endpoint_id\
-      \ == 1) or\n  (trigger.platform == \"webhook\" and trigger.json.work == \"on\"\
-      ) or\n  (trigger.platform == \"time\" and now().strftime(\"%a\") not in [\"\
-      Sat\", \"Sun\"] and states(\"input_boolean.work\") == \"off\")\n-%}on{%- else\
-      \ -%}off{%- endif -%}"
+  - service: |-
+      input_boolean.turn_{%- if
+        (trigger.platform == "event" and trigger.event.data.endpoint_id == 1) or
+        (trigger.platform == "webhook" and trigger.json.work == "on") or
+        (trigger.platform == "time" and now().strftime("%a") not in ["Sat", "Sun"] and states("input_boolean.work") == "off")
+      -%}on{%- else -%}off{%- endif -%}
     data: {}
     target:
       entity_id: input_boolean.work
