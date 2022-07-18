@@ -867,6 +867,10 @@
       - binary_sensor.garage_motion
       from: 'on'
       to: 'off'
+      for:
+        hours: 0
+        minutes: 3
+        seconds: 0
   - service: light.turn_off
     data: {}
     target:
@@ -1080,12 +1084,12 @@
   action:
   - service: script.clean_rooms
     data:
-      rooms:
-      - closet
-      - bathroom
-      - bedroom
-      - guest
+      rooms: &id001
       - hall
+      - bedroom
+      - bathroom
+      - closet
+      - guest
       - office
       - baby
       - kids_bathroom
@@ -1149,16 +1153,7 @@
   action:
   - service: script.clean_rooms
     data:
-      rooms:
-      - closet
-      - bathroom
-      - bedroom
-      - guest
-      - hall
-      - office
-      - baby
-      - kids_bathroom
-      - gym
+      rooms: *id001
   mode: single
 - id: '1657165099355'
   alias: '[Webhook] Stop Wall-E'
