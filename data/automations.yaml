@@ -103,23 +103,7 @@
       subtype: 4
   condition: []
   action:
-  - service: light.turn_off
-    target:
-      area_id:
-      - kitchen
-      - living_room
-      - entryway
-      - porch
-      - powder_bath
-      - stairs_closet
-      - entryway
-      - dining_room
-      - garage
-    data: {}
-  - service: homeassistant.turn_off
-    data: {}
-    target:
-      entity_id: remote.roku_tv
+  - service: script.turn_off_downstairs
   mode: single
 - id: '1644122061382'
   alias: '[Stairs Closet] Light On'

@@ -217,6 +217,50 @@ stop_cleaner:
   - service: vacuum.return_to_base
     target:
       entity_id: vacuum.the_langefelds_cleaning_robot
+good_night:
+  alias: Good Night
+  sequence:
+  - parallel:
+    - service: cover.close_cover
+      target:
+        area_id:
+        - bedroom
+        - bathroom
+    - service: light.turn_off
+      target:
+        area_id:
+        - bedroom
+        - bathroom
+        - closet
+        entity_id: light.deck_string_lights
+    - service: switch.turn_off
+      target:
+        entity_id: switch.gosund_03
+    - service: media_player.media_pause
+      target:
+        entity_id:
+        - media_player.bedroom
+        - media_player.bedroom_speaker
+turn_off_downstairs:
+  alias: 'Turn off Downstairs'
+  sequence:
+  - service: light.turn_off
+    target:
+      area_id:
+      - kitchen
+      - living_room
+      - entryway
+      - porch
+      - powder_bath
+      - stairs_closet
+      - entryway
+      - dining_room
+      - garage
+    data: {}
+  - service: homeassistant.turn_off
+    data: {}
+    target:
+      entity_id: remote.roku_tv
 
 work:
   alias: Set the Perfect Scene for Work
