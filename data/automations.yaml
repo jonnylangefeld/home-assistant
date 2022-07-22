@@ -486,36 +486,6 @@
   trace:
     stored_traces: 30
   mode: restart
-- id: '1656372517250'
-  alias: '[Office] Block Sun 1'
-  description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.sun_azimuth
-    above: '250'
-  condition: []
-  action:
-  - service: cover.set_cover_position
-    data:
-      position: 56
-    target:
-      entity_id: cover.office_shades_west_window_covering
-  mode: single
-- id: '1656372517251'
-  alias: '[Office] Block Sun 2'
-  description: ''
-  trigger:
-  - platform: numeric_state
-    entity_id: sensor.sun_azimuth
-    above: '265'
-  condition: []
-  action:
-  - service: cover.set_cover_position
-    data:
-      position: 41
-    target:
-      entity_id: cover.office_shades_west_window_covering
-  mode: single
 - id: '1656372517252'
   alias: '[Office] Open after Block Sun'
   description: ''
@@ -529,75 +499,6 @@
     data: {}
     target:
       entity_id: cover.office_shades_west_window_covering
-  mode: single
-- id: '1656372852136'
-  alias: '[Office] Open Shades When LEDs Switch On'
-  description: ''
-  trigger:
-  - platform: device
-    type: turned_on
-    device_id: 6a190111eba2023708c4285a4ef6e731
-    entity_id: light.leds
-    domain: light
-  condition:
-  - condition: state
-    entity_id: sun.sun
-    state: below_horizon
-  action:
-  - service: cover.set_cover_position
-    data:
-      position: 100
-    target:
-      area_id: office
-  mode: single
-- id: '1656372852137'
-  alias: '[Office] Close Shades When LEDs Switch Off'
-  description: ''
-  trigger:
-  - platform: device
-    type: turned_off
-    device_id: 6a190111eba2023708c4285a4ef6e731
-    entity_id: light.leds
-    domain: light
-  condition:
-  - condition: state
-    entity_id: sun.sun
-    state: below_horizon
-  action:
-  - service: switch.turn_on
-    data: {}
-    target:
-      entity_id: switch.office_zebra
-  mode: single
-- id: '1656372852138'
-  alias: '[Office] Close Shades At Midnight'
-  description: ''
-  trigger:
-  - platform: time
-    at: 00:00:00
-  condition:
-  - condition: state
-    entity_id: light.leds
-    state: 'off'
-  action:
-  - service: switch.turn_on
-    data: {}
-    target:
-      entity_id: switch.office_zebra
-  mode: single
-- id: '1656372852139'
-  alias: '[Office] Open Shades at Sunrise'
-  description: ''
-  trigger:
-  - platform: sun
-    event: sunrise
-    offset: 00:01:00
-  condition: []
-  action:
-  - service: cover.open_cover
-    data: {}
-    target:
-      area_id: office
   mode: single
 - id: '1656452687326'
   alias: '[Backyard] Turn on String Lights'
