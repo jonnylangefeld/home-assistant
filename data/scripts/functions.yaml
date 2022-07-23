@@ -60,18 +60,58 @@ clean_rooms:
   - repeat:
       for_each: "{{ rooms }}"
       sequence:
-      - service: vacuum.pause
+      - &pause
+        service: vacuum.pause
         target:
           entity_id: vacuum.the_langefelds_cleaning_robot
       - wait_template: "{{ states('vacuum.the_langefelds_cleaning_robot') in ['idle', 'docked', 'paused'] }}"
-      - service: xiaomi_miio.vacuum_clean_zone
-        data:
-          repeats: 1
-          zone: '{{ zones[repeat.item] }}'
-        target:
-          entity_id: vacuum.the_langefelds_cleaning_robot
-      - wait_template: "{{ is_state('vacuum.the_langefelds_cleaning_robot', 'cleaning') }}"
-      - wait_template: "{{ states('vacuum.the_langefelds_cleaning_robot') in ['idle', 'docked', 'returning'] }}"
+      - if:
+        - alias: "is bedroom"
+          condition: template
+          value_template: '{{ repeat.item == "bedroom" }}'
+        then:
+        - &go_to_corner
+          service: xiaomi_miio.vacuum_goto
+          data:
+            x_coord: '34754'
+            y_coord: '31274'
+          target:
+            entity_id: vacuum.the_langefelds_cleaning_robot
+        - &wait_for_cleaning 
+          wait_template: "{{ is_state('vacuum.the_langefelds_cleaning_robot', 'cleaning') }}"
+        - &wait_for_finished
+          wait_template: "{{ states('vacuum.the_langefelds_cleaning_robot') in ['idle', 'docked', 'returning'] }}"
+        - *pause
+        - service: xiaomi_miio.vacuum_clean_zone
+          data:
+            repeats: 1
+            zone:
+            - '{{ zones[repeat.item][0] }}'
+          target:
+            entity_id: vacuum.the_langefelds_cleaning_robot
+        - *wait_for_cleaning
+        - *wait_for_finished
+        - *pause
+        - *go_to_corner
+        - *wait_for_cleaning
+        - *wait_for_finished
+        - *pause
+        - service: xiaomi_miio.vacuum_clean_zone
+          data:
+            repeats: 1
+            zone:
+            - '{{ zones[repeat.item][1] }}'
+          target:
+            entity_id: vacuum.the_langefelds_cleaning_robot
+        else:
+        - service: xiaomi_miio.vacuum_clean_zone
+          data:
+            repeats: 1
+            zone: '{{ zones[repeat.item] }}'
+          target:
+            entity_id: vacuum.the_langefelds_cleaning_robot
+      - *wait_for_cleaning
+      - *wait_for_finished
 clean_upstairs:
   alias: 'Clean Upstairs'
   sequence:
