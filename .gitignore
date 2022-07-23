@@ -14,3 +14,4 @@ data/backup-secrets.json
 data/maps/map_image*
 .env
 .vscode
+code-server

@@ -17,3 +17,18 @@ services:
       # Do not use /dev/ttyUSBX serial devices, as those mappings can change over time.
       # Instead, use the /dev/serial/by-id/X serial device for your Z-Wave stick.
       - '/dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_f8e102a854d9eb11bc15148e6fe9f4d9-if00-port0:/dev/sonoff'
+  vscode:
+    container_name: vscode
+    image: codercom/code-server:4.5.1
+    network_mode: host
+    volumes:
+      # Set <project dir> to the directory you want to open in VS Code.
+      - /home/umbrel/home-assistant:/home/coder/project
+      # <vs code config> should point to a local dir where vs code stores its data.
+      - /home/umbrel/home-assistant/data/code-server:/root/.local/share/code-server
+    command: |
+      code-server --bind-addr 0.0.0.0:8082 --auth password --disable-telemetry /home/coder/project
+    environment:
+      PASSWORD: "${VSCODE_PASSWORD}"
+    restart: unless-stopped
+    user: root:root

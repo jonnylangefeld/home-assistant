@@ -58,6 +58,7 @@ input_number: !include input_numbers.yaml
 input_boolean: !include input_boolean.yaml
 switch: !include switches.yaml
 camera: !include cameras.yaml
+panel_iframe: !include panel_iframes.yaml
 shell_command: !include shell_commands.yaml
 
 # supposedly the new template platform, but doesn't work for me yet

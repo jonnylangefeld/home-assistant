@@ -1,0 +1,5 @@
+vscode:
+  title: "VS Code"
+  url: "http://umbrel.local:8082"
+  icon: mdi:microsoft-visual-studio-code
+  require_admin: true
