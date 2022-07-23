@@ -163,7 +163,7 @@ turn_off_downstairs:
       entity_id: remote.roku_tv
 work:
   alias: Set the Perfect Scene for Work
-  mode: single
+  mode: restart
   sequence:
   - if:
       - alias: "Jonny is at work"
@@ -249,11 +249,13 @@ work:
           service: switch.turn_off
           target:
             entity_id: switch.gosund_04
-        - alias: "Turn off the LEDs"
-          service: light.turn_off
-          target:
-            entity_id: light.leds
         - alias: "Set shades to zebra"
           service: switch.turn_on
           target:
             entity_id: switch.office_zebra
+        - sequence:
+          - delay: 30
+          - alias: "Turn off the LEDs"
+            service: light.turn_off
+            target:
+              entity_id: light.leds

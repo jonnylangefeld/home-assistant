@@ -1084,15 +1084,37 @@
     value_template: '{% if trigger.platform == "event" %}{{ trigger.event.data.endpoint_id
       in [1,2] }}{% else %}true{% endif %}'
   action:
-  - service: "input_boolean.turn_{%- if\n  (trigger.platform == \"event\" and trigger.event.data.endpoint_id\
-      \ == 1) or\n  (trigger.platform == \"webhook\" and trigger.json.work == \"on\"\
-      ) or\n  (trigger.platform == \"time\" and now().strftime(\"%a\") not in [\"\
-      Sat\", \"Sun\"] and states(\"input_boolean.work\") == \"off\")\n-%}on{%- else\
-      \ -%}off{%- endif -%}"
+  - service: |-
+      {%- 
+        if
+          (trigger.platform == "event" and trigger.event.data.endpoint_id == 1) or
+          (trigger.platform == "webhook" and trigger.json.work == "on") or
+          (trigger.platform == "time" and now().strftime("%a") not in ["Sat", "Sun"] or states("input_boolean.work") == "on")
+      -%}
+        {%-
+          if states("input_boolean.work") == "on" 
+        -%}script.work{%- 
+          else 
+        -%}input_boolean.turn_on{%- 
+          endif 
+        -%}
+      {%- 
+        else 
+      -%}
+        {%-
+          if states("input_boolean.work") == "off" 
+        -%}script.work{%- 
+          else 
+        -%}input_boolean.turn_off{%- 
+          endif 
+        -%}
+      {%- 
+        endif 
+      -%}
     data: {}
     target:
       entity_id: input_boolean.work
-  mode: single
+  mode: restart
 - id: '1658005130510'
   alias: '[Office] Work'
   description: ''
@@ -1133,11 +1155,15 @@
   trigger:
   - platform: webhook
     webhook_id: office-lake-view-JcV5sHtqb5VTeHv8UZY6ppkd8asd76cLKasldkb213asdf8asdfcbLYHkHl7632H3dj21ks0
-  condition: []
   action:
-  - service: input_boolean.turn_{% if trigger.json.work_lake_view == "off" %}off{%
-      else %}on{% endif%}
-    data: {}
-    target:
-      entity_id: input_boolean.work_lake_view
-  mode: single
+  - if:
+    - condition: template
+      value_template: '{{ trigger.json.work_lake_view == states("input_boolean.work_lake_view") }}'
+    then:
+    - service: script.work
+    else:
+    - service: input_boolean.turn_{% if trigger.json.work_lake_view == "off" %}off{%
+        else %}on{% endif%}
+      target:
+        entity_id: input_boolean.work_lake_view
+  mode: restart
