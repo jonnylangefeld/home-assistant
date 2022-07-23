@@ -4,4 +4,3 @@ work:
 work_lake_view:
   name: View the lake when at work
   icon: mdi:waves
-  initial: true
