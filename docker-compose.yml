@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   server:
-    image: homeassistant/home-assistant:2022.6.5@sha256:9585a9d72cb29d3e26feba1029ba3c452fdf245c60439d39367e88cb9dabef31
+    image: homeassistant/home-assistant:2022.7.6@sha256:f4ce55e5d7dd0a54ba38cf87bb671e78d3bcc93d1a5f5f40bc87aab10eb2fc0b
     network_mode: host
     container_name: home-assistant
     restart: unless-stopped
