@@ -1084,12 +1084,11 @@
     value_template: '{% if trigger.platform == "event" %}{{ trigger.event.data.endpoint_id
       in [1,2] }}{% else %}true{% endif %}'
   action:
-  - service: |-
-      input_boolean.turn_{%- if
-        (trigger.platform == "event" and trigger.event.data.endpoint_id == 1) or
-        (trigger.platform == "webhook" and trigger.json.work == "on") or
-        (trigger.platform == "time" and now().strftime("%a") not in ["Sat", "Sun"] and states("input_boolean.work") == "off")
-      -%}on{%- else -%}off{%- endif -%}
+  - service: "input_boolean.turn_{%- if\n  (trigger.platform == \"event\" and trigger.event.data.endpoint_id\
+      \ == 1) or\n  (trigger.platform == \"webhook\" and trigger.json.work == \"on\"\
+      ) or\n  (trigger.platform == \"time\" and now().strftime(\"%a\") not in [\"\
+      Sat\", \"Sun\"] and states(\"input_boolean.work\") == \"off\")\n-%}on{%- else\
+      \ -%}off{%- endif -%}"
     data: {}
     target:
       entity_id: input_boolean.work
@@ -1127,7 +1126,7 @@
   action:
   - service: script.work
     data: {}
-  mode: single
+  mode: restart
 - id: '1658010893923'
   alias: '[Office] Lake View'
   description: ''
