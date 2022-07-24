@@ -1089,7 +1089,7 @@
         if
           (trigger.platform == "event" and trigger.event.data.endpoint_id == 1) or
           (trigger.platform == "webhook" and trigger.json.work == "on") or
-          (trigger.platform == "time" and now().strftime("%a") not in ["Sat", "Sun"] or states("input_boolean.work") == "on")
+          (trigger.platform == "time" and (now().strftime("%a") not in ["Sat", "Sun"] or states("input_boolean.work") == "on"))
       -%}
         {%-
           if states("input_boolean.work") == "on" 
