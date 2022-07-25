@@ -1,6 +1,9 @@
 work:
-  name: Jonny's work status
+  name: Jonny's Work Status
   icon: mdi:briefcase-outline
 work_lake_view:
-  name: View the lake when at work
+  name: View the Lake When at Work
   icon: mdi:waves
+guest_mode:
+  name: Guest Mode
+  icon: mdi:bed-outline

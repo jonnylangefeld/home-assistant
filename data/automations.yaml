@@ -391,7 +391,24 @@
     offset: '0'
   condition: []
   action:
-  - scene: scene.zebra
+  - service: switch.turn_on
+    data: {}
+    target:
+      entity_id:
+      - switch.entryway_zebra
+      - switch.studio_missy_zebra
+      - switch.studio_mckenzie_zebra
+      - switch.bedroom_zebra
+      - switch.bathroom_zebra
+  - if:
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: 'off'
+    then:
+    - service: switch.turn_on
+      data: {}
+      target:
+        entity_id: switch.guest_room_zebra
   mode: single
 - id: '1648327422530'
   alias: '[Shades] Close Front Shades at Sunset'
