@@ -38,4 +38,4 @@ services:
     network_mode: host
     image: jonnylangefeld/cloudflared
     build: cloudflared
-    command: ["tunnel", "--config", "/config.yaml", "run", "--token", "eyJhIjoiZTJjNTcxNTMxMzViYTk5MTI1ZTZkZjRkZGI4MWFkNTQiLCJ0IjoiNzliMDM2ZmMtZGU5Zi00ZmNiLWI2NTctM2VkZmM4ODhkMmMxIiwicyI6Ik9UaGhOV1psTVRjdE1XWTRPUzAwWldVeExXRmpZelV0TlRjeVkySTRNMk0wT0RReiJ9"]
+    command: ["tunnel", "--config", "/config.yaml", "run", "--token", "${CLOUDFLARED_TOKEN}"]
