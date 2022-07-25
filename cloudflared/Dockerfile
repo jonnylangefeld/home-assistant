@@ -7,8 +7,7 @@ RUN curl -Lo cloudflared https://github.com/cloudflare/cloudflared/releases/down
     chmod +x cloudflared
 
 
-# FROM gcr.io/distroless/base-debian11:nonroot
-FROM alpine
+FROM alpine:3.15.5
 
 ARG USER=cloudflared
 
