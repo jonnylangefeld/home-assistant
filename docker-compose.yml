@@ -32,3 +32,10 @@ services:
       PASSWORD: "${VSCODE_PASSWORD}"
     restart: unless-stopped
     user: root:root
+  cloudflared:
+  # configure via https://dash.teams.cloudflare.com/ > access > tunnels
+    container_name: cloudflared
+    network_mode: host
+    image: jonnylangefeld/cloudflared
+    build: cloudflared
+    command: ["tunnel", "--config", "/config.yaml", "run", "--token", "eyJhIjoiZTJjNTcxNTMxMzViYTk5MTI1ZTZkZjRkZGI4MWFkNTQiLCJ0IjoiNzliMDM2ZmMtZGU5Zi00ZmNiLWI2NTctM2VkZmM4ODhkMmMxIiwicyI6Ik9UaGhOV1psTVRjdE1XWTRPUzAwWldVeExXRmpZelV0TlRjeVkySTRNMk0wT0RReiJ9"]

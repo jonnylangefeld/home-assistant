@@ -7,6 +7,9 @@ homeassistant:
 
 http:
   server_port: 8083
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - ::1
 
 cloud:
 
