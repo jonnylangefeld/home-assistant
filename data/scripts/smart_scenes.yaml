@@ -243,6 +243,11 @@ work:
                 brightness_pct: 100
               target:
                 entity_id: light.leds
+          else:
+            - alias: "Turn off the LEDs"
+              service: light.turn_off
+              target:
+                entity_id: light.leds
     else:
       - parallel:
         - alias: "Turn off the office screens"
